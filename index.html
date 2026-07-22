@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUEENEE × CallTwin — Websites That Answer The Phone</title>
+<meta name="description" content="A brand-new business website in 5 days, backed by an AI receptionist that answers every call and text 24/7. Built by HSW365.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0f;
+    --bg-2:#101018;
+    --bg-3:#15151f;
+    --line:rgba(255,255,255,.08);
+    --line-2:rgba(255,255,255,.14);
+    --text:#f4f4f8;
+    --muted:#9a9ab0;
+    --cyan:#22d3ee;
+    --violet:#8b5cf6;
+    --red:#ef4444;
+    --yellow:#fbbf24;
+    --grad:linear-gradient(120deg,var(--cyan),var(--violet));
+    --grad-hot:linear-gradient(120deg,var(--red),var(--yellow));
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden}
+  h1,h2,h3,h4,.head{font-family:'Barlow Condensed',sans-serif;font-weight:700;line-height:1.02;letter-spacing:-.01em;text-transform:uppercase}
+  .mono{font-family:'Space Mono',monospace}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  a{text-decoration:none;color:inherit}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hot-text{background:var(--grad-hot);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(10,10,15,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .logo{font-family:'Barlow Condensed';font-weight:800;font-size:26px;letter-spacing:.02em}
+  .logo span{font-size:12px;color:var(--muted);font-family:'Space Mono';letter-spacing:.15em;display:block;margin-top:-6px}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{color:var(--muted);font-size:14px;font-weight:500;transition:.2s}
+  .nav-links a:hover{color:var(--text)}
+  .btn{display:inline-block;font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:16px;padding:13px 26px;border-radius:10px;cursor:pointer;transition:.2s;border:none}
+  .btn-primary{background:var(--grad);color:#0a0a0f}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px -8px rgba(139,92,246,.5)}
+  .btn-hot{background:var(--grad-hot);color:#0a0a0f}
+  .btn-hot:hover{transform:translateY(-2px);box-shadow:0 12px 30px -8px rgba(251,191,36,.45)}
+  .btn-ghost{background:transparent;border:1px solid var(--line-2);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+  @media(max-width:820px){.nav-links a:not(.btn){display:none}}
+
+  /* HERO */
+  .hero{position:relative;padding:96px 0 72px;text-align:center;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(139,92,246,.18),transparent 60%);pointer-events:none}
+  .hero::after{content:"";position:absolute;top:10%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(34,211,238,.12),transparent 62%);pointer-events:none}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:var(--bg-3);border:1px solid var(--line-2);border-radius:100px;padding:7px 16px;font-family:'Space Mono';font-size:12px;letter-spacing:.06em;color:var(--muted);position:relative;z-index:2}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
+  .hero h1{font-size:clamp(44px,7vw,80px);margin:26px 0 20px;position:relative;z-index:2}
+  .hero p.sub{font-size:clamp(17px,2.2vw,21px);color:var(--muted);max-width:640px;margin:0 auto 34px;position:relative;z-index:2}
+  .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:2}
+  .hero-note{margin-top:18px;font-family:'Space Mono';font-size:12px;color:var(--muted);position:relative;z-index:2}
+
+  /* STAT BAR */
+  .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2)}
+  .stats-in{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
+  .stat{background:var(--bg-2);padding:30px 20px;text-align:center}
+  .stat .n{font-family:'Barlow Condensed';font-weight:800;font-size:42px;line-height:1}
+  .stat .l{font-family:'Space Mono';font-size:11px;letter-spacing:.08em;color:var(--muted);margin-top:8px;text-transform:uppercase}
+  @media(max-width:760px){.stats-in{grid-template-columns:repeat(2,1fr)}}
+
+  /* SECTION */
+  section{padding:84px 0}
+  .kicker{font-family:'Space Mono';font-size:13px;letter-spacing:.18em;color:var(--cyan);text-transform:uppercase;margin-bottom:14px}
+  .kicker.hot{color:var(--yellow)}
+  h2.sec{font-size:clamp(34px,5vw,54px);margin-bottom:18px;max-width:760px}
+  .sec-sub{color:var(--muted);font-size:18px;max-width:640px;margin-bottom:8px}
+
+  /* PROBLEM */
+  .prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+  .prob{background:var(--bg-2);border:1px solid var(--line);border-radius:16px;padding:30px;transition:.25s}
+  .prob:hover{border-color:var(--red);transform:translateY(-4px)}
+  .prob .big{font-family:'Barlow Condensed';font-weight:800;font-size:38px;color:var(--red);line-height:1;margin-bottom:12px}
+  .prob h3{font-size:22px;margin-bottom:8px}
+  .prob p{color:var(--muted);font-size:15px}
+  @media(max-width:820px){.prob-grid{grid-template-columns:1fr}}
+
+  /* OFFER STACK */
+  .offer{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .stack{background:var(--bg);border:1px solid var(--line-2);border-radius:20px;overflow:hidden;margin-top:44px}
+  .stack-row{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 28px;border-bottom:1px solid var(--line)}
+  .stack-row:last-child{border-bottom:none}
+  .stack-row .left{display:flex;gap:16px;align-items:flex-start}
+  .chk{flex:none;width:26px;height:26px;border-radius:7px;background:var(--grad);color:#0a0a0f;display:grid;place-items:center;font-weight:800;font-family:'Barlow Condensed';font-size:18px;margin-top:2px}
+  .stack-row h4{font-size:20px;margin-bottom:2px}
+  .stack-row p{color:var(--muted);font-size:14px}
+  .stack-row .val{font-family:'Space Mono';color:var(--muted);font-size:14px;white-space:nowrap;text-decoration:line-through;opacity:.7}
+  .stack-total{display:flex;justify-content:space-between;align-items:center;padding:26px 28px;background:linear-gradient(120deg,rgba(139,92,246,.12),rgba(34,211,238,.08))}
+  .stack-total .lbl{font-family:'Barlow Condensed';font-weight:700;font-size:24px;text-transform:uppercase}
+  .stack-total .amt{text-align:right}
+  .stack-total .amt .was{font-family:'Space Mono';font-size:14px;color:var(--muted);text-decoration:line-through}
+  .stack-total .amt .now{font-family:'Barlow Condensed';font-weight:800;font-size:34px}
+
+  /* COMPARISON */
+  .cmp{width:100%;border-collapse:separate;border-spacing:0;margin-top:44px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .cmp th,.cmp td{padding:18px 22px;text-align:left;border-bottom:1px solid var(--line);font-size:15px}
+  .cmp th{font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;font-size:17px;letter-spacing:.02em;background:var(--bg-3)}
+  .cmp th:nth-child(2){color:var(--muted)}
+  .cmp th:nth-child(3){background:linear-gradient(120deg,rgba(139,92,246,.18),rgba(34,211,238,.1))}
+  .cmp td:first-child{color:var(--muted);font-weight:500}
+  .cmp td:nth-child(3){font-weight:600}
+  .cmp tr:last-child td{border-bottom:none}
+  .x{color:var(--red);font-weight:700}
+  .y{color:var(--cyan);font-weight:700}
+  .cmp-wrap{overflow-x:auto}
+
+  /* HOW */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px}
+  .step{background:var(--bg-2);border:1px solid var(--line);border-radius:16px;padding:26px;position:relative}
+  .step .num{font-family:'Space Mono';font-size:13px;color:var(--cyan);letter-spacing:.1em}
+  .step h4{font-size:21px;margin:12px 0 8px}
+  .step p{color:var(--muted);font-size:14px}
+  @media(max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.steps{grid-template-columns:1fr}}
+
+  /* PRICING */
+  .price{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px;align-items:stretch}
+  .tier{background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:32px 28px;display:flex;flex-direction:column}
+  .tier.feat{border-color:var(--violet);box-shadow:0 0 0 1px var(--violet),0 30px 60px -30px rgba(139,92,246,.5);position:relative}
+  .tier.feat::before{content:"MOST POPULAR";position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--grad);color:#0a0a0f;font-family:'Barlow Condensed';font-weight:800;font-size:12px;letter-spacing:.1em;padding:5px 16px;border-radius:100px}
+  .tier .tname{font-family:'Barlow Condensed';font-weight:800;font-size:26px;text-transform:uppercase}
+  .tier .tdesc{color:var(--muted);font-size:14px;margin:4px 0 20px;min-height:40px}
+  .tier .amt{font-family:'Barlow Condensed';font-weight:800;font-size:46px;line-height:1}
+  .tier .amt small{font-size:16px;color:var(--muted);font-family:'Inter';font-weight:500}
+  .tier .mo{font-family:'Space Mono';font-size:13px;color:var(--muted);margin-top:6px}
+  .tier ul{list-style:none;margin:24px 0;flex:1}
+  .tier li{padding:9px 0;border-bottom:1px solid var(--line);font-size:14.5px;color:#d5d5e0;display:flex;gap:10px;align-items:flex-start}
+  .tier li::before{content:"→";color:var(--cyan);font-weight:700;flex:none}
+  .tier .btn{width:100%;text-align:center;margin-top:6px}
+  @media(max-width:900px){.tiers{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto}}
+
+  /* FEATURES */
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+  .fcard{background:var(--bg-2);border:1px solid var(--line);border-radius:16px;padding:28px;transition:.25s}
+  .fcard:hover{border-color:var(--cyan);transform:translateY(-4px)}
+  .fcard .ic{width:44px;height:44px;border-radius:11px;background:var(--grad);display:grid;place-items:center;margin-bottom:16px;font-family:'Barlow Condensed';font-weight:800;color:#0a0a0f;font-size:22px}
+  .fcard h4{font-size:20px;margin-bottom:8px}
+  .fcard p{color:var(--muted);font-size:14px}
+  @media(max-width:820px){.feat-grid{grid-template-columns:1fr}}
+
+  /* FAQ */
+  details{border:1px solid var(--line);border-radius:14px;margin-bottom:14px;background:var(--bg-2);overflow:hidden}
+  summary{padding:22px 26px;font-family:'Barlow Condensed';font-weight:600;font-size:20px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-size:26px;color:var(--cyan);font-weight:400}
+  details[open] summary::after{content:"−"}
+  details p{padding:0 26px 24px;color:var(--muted);font-size:15px}
+
+  /* FINAL */
+  .final{text-align:center;position:relative;overflow:hidden}
+  .final::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(139,92,246,.15),transparent 60%);pointer-events:none}
+  .final h2{font-size:clamp(38px,6vw,66px);margin-bottom:20px;position:relative;z-index:2}
+  .final p{color:var(--muted);font-size:19px;max-width:560px;margin:0 auto 34px;position:relative;z-index:2}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--line);padding:44px 0;background:var(--bg-2)}
+  .foot-in{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+  .foot-in .mono{color:var(--muted);font-size:13px}
+  .foot-links{display:flex;gap:22px}
+  .foot-links a{color:var(--muted);font-size:14px}
+  .foot-links a:hover{color:var(--cyan)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <div class="logo">QUEENEE<span>× CALLTWIN · BY HSW365</span></div>
+    <div class="nav-links">
+      <a href="#offer">The Offer</a>
+      <a href="#compare">Why Us</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#pricing" class="btn btn-primary">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <span class="pill"><span class="dot"></span> NOW BOOKING · SOUTH JERSEY &amp; PHILADELPHIA</span>
+    <h1>We Build Websites<br>That <span class="grad-text">Answer The Phone.</span></h1>
+    <p class="sub">A brand-new business website in 5 days — backed by an AI receptionist that answers every call and text, 24/7, and books the job while your competitor's phone rings out.</p>
+    <div class="hero-cta">
+      <a href="#pricing" class="btn btn-hot">Claim Your Build</a>
+      <a href="#offer" class="btn btn-ghost">See What's Included</a>
+    </div>
+    <p class="hero-note">No missed calls. No lost leads. No $4,000 agency invoice.</p>
+  </div>
+</header>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="wrap"><div class="stats-in">
+    <div class="stat"><div class="n grad-text">5 Days</div><div class="l">Site Live</div></div>
+    <div class="stat"><div class="n grad-text">24/7</div><div class="l">AI Answers Calls</div></div>
+    <div class="stat"><div class="n grad-text">62%</div><div class="l">Callers Never Call Back*</div></div>
+    <div class="stat"><div class="n grad-text">$0</div><div class="l">Down To Talk</div></div>
+  </div></div>
+</div>
+
+<!-- PROBLEM -->
+<section>
+  <div class="wrap">
+    <div class="kicker hot">The Real Problem</div>
+    <h2 class="sec">Your business isn't losing to better companies. It's losing to <span class="hot-text">unanswered phones.</span></h2>
+    <p class="sec-sub">Every missed call and every "still under construction" website is a customer handing money to the shop down the street.</p>
+    <div class="prob-grid">
+      <div class="prob">
+        <div class="big">62%</div>
+        <h3>Missed Calls Don't Call Back</h3>
+        <p>When a new customer hits voicemail, most don't leave one — they dial the next name on Google. That lead is gone for good.</p>
+      </div>
+      <div class="prob">
+        <div class="big">75%</div>
+        <h3>They Judge You In Seconds</h3>
+        <p>Three out of four people judge a business's credibility on its website. An outdated or missing site quietly kills trust before you ever pick up.</p>
+      </div>
+      <div class="prob">
+        <div class="big">$0</div>
+        <h3>After-Hours = Dead Air</h3>
+        <p>Calls come in nights, weekends, mid-job. Without someone to answer, those hours are pure lost revenue — every single day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section class="offer" id="offer">
+  <div class="wrap">
+    <div class="kicker">The QUEENEE Digital Storefront</div>
+    <h2 class="sec">One flat build. A site that sells, and an AI that <span class="grad-text">never misses a lead.</span></h2>
+    <p class="sec-sub">Generic agencies hand you a pretty website and disappear. We hand you a machine that captures customers around the clock.</p>
+
+    <div class="stack">
+      <div class="stack-row">
+        <div class="left"><div class="chk">✓</div><div><h4>Custom 5-Page Business Website</h4><p>Mobile-first, fast, built to convert — home, services, about, reviews, contact.</p></div></div>
+        <div class="val">$2,000 value</div>
+      </div>
+      <div class="stack-row">
+        <div class="left"><div class="chk">✓</div><div><h4>CallTwin AI Receptionist</h4><p>Answers every call &amp; text in your business's voice, 24/7 — books, screens, follows up.</p></div></div>
+        <div class="val">$1,200/yr value</div>
+      </div>
+      <div class="stack-row">
+        <div class="left"><div class="chk">✓</div><div><h4>Local SEO + Google Setup</h4><p>Show up when people in your town search — Google Business Profile optimized and linked.</p></div></div>
+        <div class="val">$600 value</div>
+      </div>
+      <div class="stack-row">
+        <div class="left"><div class="chk">✓</div><div><h4>Lead Capture &amp; Text-Back</h4><p>Missed a call? The system instantly texts the caller back so you never lose them.</p></div></div>
+        <div class="val">$400 value</div>
+      </div>
+      <div class="stack-row">
+        <div class="left"><div class="chk">✓</div><div><h4>Done-For-You Setup + Training</h4><p>You touch nothing. We build, connect, test, and hand you a working machine.</p></div></div>
+        <div class="val">$500 value</div>
+      </div>
+      <div class="stack-total">
+        <div class="lbl">Total Real Value</div>
+        <div class="amt"><div class="was">$4,700+</div><div class="now grad-text">From $999</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section id="compare">
+  <div class="wrap">
+    <div class="kicker">Us vs. Everyone Else</div>
+    <h2 class="sec">A website is table stakes. <span class="grad-text">We answer the phone.</span></h2>
+    <p class="sec-sub">This is the part no template farm, no Fiverr freelancer, and no traditional agency can match.</p>
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th>What You Get</th>
+            <th>Typical Agency / Template</th>
+            <th>QUEENEE × CallTwin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Website delivered</td><td>3–8 weeks</td><td class="y">5 days</td></tr>
+          <tr><td>Upfront cost</td><td>$3,000–$6,000</td><td class="y">From $1,997</td></tr>
+          <tr><td>Answers your phone 24/7</td><td class="x">✕ No</td><td class="y">✓ AI receptionist</td></tr>
+          <tr><td>Texts back missed callers</td><td class="x">✕ No</td><td class="y">✓ Instant</td></tr>
+          <tr><td>Books appointments for you</td><td class="x">✕ No</td><td class="y">✓ Yes</td></tr>
+          <tr><td>Works nights &amp; weekends</td><td class="x">✕ You do</td><td class="y">✓ Always on</td></tr>
+          <tr><td>Local SEO included</td><td>Add-on $$$</td><td class="y">✓ Included</td></tr>
+          <tr><td>Ongoing support</td><td>Hourly / ticket queue</td><td class="y">Direct line to the founder</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="offer">
+  <div class="wrap">
+    <div class="kicker">How It Works</div>
+    <h2 class="sec">From "no site" to <span class="grad-text">fully handled</span> in one week.</h2>
+    <div class="steps">
+      <div class="step"><div class="num">STEP 01</div><h4>Quick Call</h4><p>15 minutes. You tell us about your business. We handle the rest — no tech talk required.</p></div>
+      <div class="step"><div class="num">STEP 02</div><h4>We Build</h4><p>Your site, your AI receptionist, your Google profile — all built and configured for you.</p></div>
+      <div class="step"><div class="num">STEP 03</div><h4>You Approve</h4><p>We walk you through it live. Tweaks are included. Nothing goes live until you love it.</p></div>
+      <div class="step"><div class="num">STEP 04</div><h4>Go Live</h4><p>Site is live, phone is answered, leads are captured. You get back to running your business.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="price" id="pricing">
+  <div class="wrap">
+    <div class="kicker hot">Pick Your Package</div>
+    <h2 class="sec">Simple, flat pricing. <span class="grad-text">No surprise invoices.</span></h2>
+    <p class="sec-sub">Every package is built and managed by HSW365. Start with $0 down — we scope it on the first call.</p>
+    <div class="tiers">
+
+      <div class="tier">
+        <div class="tname">Growth</div>
+        <div class="tdesc">Most popular. A full site plus the AI phone layer that never misses a lead.</div>
+        <div class="amt">$999<small> build</small></div>
+        <div class="mo">+ $99/mo hosting &amp; receptionist</div>
+        <ul>
+          <li>Up to 10-page custom website</li>
+          <li>Full SEO + Google analytics</li>
+          <li>CallTwin AI receptionist, 24/7</li>
+          <li>Missed-call text-back</li>
+          <li>Basic e-commerce ready</li>
+        </ul>
+        <a data-checkout="refresh" class="btn btn-ghost">Start Growth</a>
+      </div>
+
+      <div class="tier feat">
+        <div class="tname">Business</div>
+        <div class="tdesc">The full package. Big site, full store, booking, AI that never sleeps.</div>
+        <div class="amt">$1,999<small> build</small></div>
+        <div class="mo">+ $199/mo everything</div>
+        <ul>
+          <li>Up to 20-page custom website</li>
+          <li>Full online store + booking system</li>
+          <li>CallTwin AI receptionist, 24/7</li>
+          <li>Books &amp; screens every call + text</li>
+          <li>Full SEO + Google setup</li>
+          <li>Done-for-you setup + training</li>
+        </ul>
+        <a data-checkout="storefront" class="btn btn-primary">Claim This Build</a>
+      </div>
+
+      <div class="tier">
+        <div class="tname">Elite</div>
+        <div class="tdesc">Multi-location or booked-solid? Unlimited pages, CRM, dedicated manager.</div>
+        <div class="amt">$4,999<small> build</small></div>
+        <div class="mo">+ $399/mo · dedicated manager</div>
+        <ul>
+          <li>Everything in Business</li>
+          <li>Unlimited pages + enterprise SEO</li>
+          <li>Full CRM integration</li>
+          <li>Multi-location / multi-number</li>
+          <li>Priority build queue</li>
+          <li>Dedicated account manager</li>
+        </ul>
+        <a href="mailto:book@hoodstar365.com?subject=QUEENEE%20Elite%20Build" class="btn btn-ghost">Book A Scope Call</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CALLTWIN FEATURES -->
+<section>
+  <div class="wrap">
+    <div class="kicker">Powered By CallTwin</div>
+    <h2 class="sec">Your AI receptionist does the job of a <span class="grad-text">full-time front desk.</span></h2>
+    <div class="feat-grid">
+      <div class="fcard"><div class="ic">24</div><h4>Always Answers</h4><p>Every call and text, day or night, holidays included — no voicemail, no lost lead.</p></div>
+      <div class="fcard"><div class="ic">✎</div><h4>Books The Job</h4><p>Screens callers, answers common questions, and schedules appointments straight into your calendar.</p></div>
+      <div class="fcard"><div class="ic">↩</div><h4>Texts Back Instantly</h4><p>If a call ever slips, the caller gets an automatic text so they stay yours, not the competitor's.</p></div>
+      <div class="fcard"><div class="ic">♪</div><h4>Your Voice, Your Brand</h4><p>Custom AI voice that sounds like your business — professional, on-brand, never robotic.</p></div>
+      <div class="fcard"><div class="ic">⚑</div><h4>Never Sleeps, Never Sick</h4><p>No PTO, no attitude, no $18/hr. It just handles every lead that comes in, consistently.</p></div>
+      <div class="fcard"><div class="ic">▤</div><h4>You Stay In The Loop</h4><p>Full log of every conversation and lead so you always know exactly what's coming in.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="offer" id="faq">
+  <div class="wrap">
+    <div class="kicker">Straight Answers</div>
+    <h2 class="sec">Questions, handled.</h2>
+    <div style="margin-top:40px;max-width:840px">
+      <details open><summary>Do I really get a full website in 5 days?</summary><p>Yes. Once you approve direction on the kickoff call, your site is designed, built, and ready for review within 5 business days. We move fast because we've built this system dozens of times.</p></details>
+      <details><summary>What exactly is the AI receptionist?</summary><p>CallTwin is our AI phone system that answers your business calls and texts 24/7. It talks to customers in a natural voice, answers questions, screens leads, books appointments, and texts back anyone you miss — so no lead ever falls through the cracks.</p></details>
+      <details><summary>I'm not technical. Do I have to set anything up?</summary><p>No. This is fully done-for-you. We build the site, configure the AI, connect your phone number and Google profile, test everything, and hand you a working system. You run your business — we run the tech.</p></details>
+      <details><summary>What if I already have a website?</summary><p>Then the Refresh package is for you. We modernize your existing site and bolt on the AI receptionist layer, so you get the lead-capture power without starting from zero.</p></details>
+      <details><summary>Is there a contract?</summary><p>The build is a flat one-time fee. The AI receptionist is month-to-month — keep it as long as it's making you money, cancel anytime. No long lock-ins.</p></details>
+      <details><summary>How do I get started?</summary><p>Book a free 15-minute call. We scope your business, confirm your package, and get your build in the queue. $0 down to talk.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final" id="contact">
+  <div class="wrap">
+    <h2>Stop losing leads<br>you already earned.</h2>
+    <p>Every day without this running is money walking to your competition. Let's get your site live and your phone answered this week.</p>
+    <div class="hero-cta">
+      <a href="mailto:book@hoodstar365.com?subject=QUEENEE%20Digital%20Storefront" class="btn btn-hot">Book Your Free Call</a>
+      <a href="tel:+18886445306" class="btn btn-ghost">Call The AI: (888) 644-5306</a>
+    </div>
+    <p class="hero-note" style="margin-top:22px">book@hoodstar365.com · (856) 796-8081</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <div>
+      <div class="logo" style="font-size:22px">QUEENEE<span>× CALLTWIN · BY HSW365</span></div>
+      <div class="mono" style="margin-top:8px">Websites that answer the phone. Built in South Jersey.</div>
+    </div>
+    <div class="foot-links">
+      <a href="#offer">Offer</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="mailto:book@hoodstar365.com">Contact</a>
+    </div>
+  </div>
+  <div class="wrap"><p class="mono" style="color:var(--muted);font-size:11px;margin-top:26px;opacity:.7">*Industry data on unanswered-call behavior. HSW365Media LLC · HOODSTAR ENT LLC · Vineland, NJ</p></div>
+</footer>
+
+<script>
+  /* ============================================================
+     HSW365 CHECKOUT CONFIG
+     Paste your Stripe Payment Links between the quotes below.
+     Get them in Stripe: Product catalog > Payment links > Create,
+     or Payment Links tab > "+ New". Copy each buy.stripe.com/... URL.
+     Until a real link is added, the button routes to your booking
+     email so it is NEVER a dead button.
+  ============================================================ */
+  const STRIPE_LINKS = {
+    refresh:    "https://buy.stripe.com/8x2eVdfpJ1022c67RN3VC0c",    // Growth $999 + $99/mo
+    storefront: "https://buy.stripe.com/dRm7sL91lfUW8Au3Bx3VC0d"     // Business $1,999 + $199/mo
+  };
+  const BOOKING_FALLBACK = "mailto:book@hoodstar365.com?subject=QUEENEE%20Digital%20Storefront%20-%20Ready%20to%20Start";
+  /* ============================================================ */
+
+  document.querySelectorAll('[data-checkout]').forEach(function(el){
+    var key = el.getAttribute('data-checkout');
+    var link = STRIPE_LINKS[key];
+    var valid = link && link.indexOf('PASTE_') !== 0;
+    el.setAttribute('href', valid ? link : BOOKING_FALLBACK);
+    if (valid) { el.setAttribute('target','_blank'); el.setAttribute('rel','noopener'); }
+  });
+</script>
+</body>
+</html>
