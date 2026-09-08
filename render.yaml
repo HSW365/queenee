@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: queenee
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: QUEENEE_CHECKOUT_URL
+        sync: false
+      - key: AI_API_KEY
+        sync: false
