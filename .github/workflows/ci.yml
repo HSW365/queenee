@@ -15,4 +15,5 @@ jobs:
           cache: npm
       - run: npm install
       - run: node --check server.js
-      - run: node --check <(printf '%s' "$(sed -n '/<script>/,/<\/script>/p' index.html | sed '1d;$d')")
+      - run: npm start > /tmp/queenee.log 2>&1 &
+      - run: sleep 2 && curl --fail http://127.0.0.1:3000/health
