@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QUEENEE — New Business Websites + 24/7 AI Receptionist | HSW365</title>
+<meta name="description" content="QUEENEE builds modern, mobile-first websites for business owners. Add CallTwin, the 24/7 AI receptionist that answers every call. $500 website. CallTwin add-on $99 today, then $99/mo for 5 months.">
+<meta property="og:title" content="QUEENEE — Your business, rebuilt for the AI era">
+<meta property="og:description" content="New or rebuilt business website for $500. Add a 24/7 AI receptionist for $99.">
+<meta name="theme-color" content="#0a0a0f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--s1:#101018;--s2:#15151f;--line:#23232f;--line2:#2e2e3d;--t:#f3f4f8;--m:#9a9cb0;--m2:#6d6f84;--c:#22d3ee;--v:#a855f7;--r:#ef4444;--y:#fbbf24;--ok:#34d399}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--t);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.w{max-width:1180px;margin:0 auto;padding:0 20px}
+.mono{font-family:'Space Mono',monospace}
+h1,h2,h3,.disp{font-family:'Barlow Condensed',Inter,sans-serif;text-transform:uppercase;letter-spacing:.01em;line-height:.95;margin:0}
+.eyebrow{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--c)}
+.grad{background:linear-gradient(95deg,var(--c),var(--v));-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:15px 24px;border-radius:10px;border:1px solid transparent;font:700 15px Inter,sans-serif;cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s}
+.btn-p{background:linear-gradient(110deg,var(--c),var(--v));color:#07070b}
+.btn-p:hover{transform:translateY(-1px);box-shadow:0 10px 30px -10px #22d3ee88}
+.btn-g{background:var(--s2);border-color:var(--line2);color:var(--t)}
+.btn-g:hover{border-color:var(--c)}
+.btn:disabled{opacity:.6;cursor:wait;transform:none}
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:#0a0a0fcc;backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .w{height:66px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-family:'Barlow Condensed';font-weight:800;font-size:28px;letter-spacing:.04em}
+.logo span{color:var(--c)}
+.navl{display:flex;gap:28px;font-size:14px;color:var(--m)}
+.navl a:hover{color:var(--t)}
+/* hero */
+.hero{position:relative;padding:90px 0 70px;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:-20% -10% auto auto;width:720px;height:720px;background:radial-gradient(circle,#a855f733,transparent 60%);pointer-events:none}
+.hero:after{content:"";position:absolute;inset:auto auto -30% -10%;width:620px;height:620px;background:radial-gradient(circle,#22d3ee22,transparent 60%);pointer-events:none}
+.hero .w{position:relative;display:grid;grid-template-columns:1.25fr .9fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(52px,7.4vw,104px);font-weight:800;margin:18px 0 22px}
+.hero p.lead{font-size:19px;color:var(--m);max-width:580px;margin:0 0 30px}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.proof{display:flex;gap:26px;margin-top:34px;flex-wrap:wrap}
+.proof div{font-size:13px;color:var(--m2)}
+.proof b{display:block;font-family:'Barlow Condensed';font-size:30px;color:var(--t);letter-spacing:.02em}
+/* analyzer card */
+.card{background:var(--s1);border:1px solid var(--line);border-radius:16px}
+.scan{padding:26px}
+.scan h3{font-size:28px;margin:8px 0 6px}
+.scan p{color:var(--m);font-size:14px;margin:0 0 16px}
+.field{width:100%;background:#07070b;border:1px solid var(--line2);color:var(--t);border-radius:10px;padding:14px 15px;font:15px Inter,sans-serif;outline:none;transition:border-color .15s}
+.field:focus{border-color:var(--c)}
+.scanrow{display:flex;gap:10px}
+.scanrow .btn{white-space:nowrap}
+#scanOut{margin-top:16px;display:none}
+.scoreline{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.score{font-family:'Barlow Condensed';font-size:52px;font-weight:800;line-height:1}
+.meter{flex:1;height:8px;background:var(--s2);border-radius:9px;overflow:hidden}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--r),var(--y),var(--c))}
+.fix{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.fix li{font-size:13.5px;color:#c9cbd9;padding-left:18px;position:relative}
+.fix li:before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:2px;background:var(--c)}
+.note{font-size:13px;color:var(--m2);margin-top:10px}
+/* sections */
+section.sec{padding:96px 0;border-top:1px solid var(--line)}
+.sh{max-width:720px;margin-bottom:46px}
+.sh h2{font-size:clamp(40px,5vw,64px);font-weight:800;margin:14px 0 14px}
+.sh p{color:var(--m);font-size:17px;margin:0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.feat{padding:26px}
+.feat .k{font-family:'Space Mono';font-size:12px;color:var(--c);letter-spacing:.1em}
+.feat h3{font-size:26px;margin:12px 0 8px}
+.feat p{color:var(--m);font-size:14.5px;margin:0}
+/* calltwin */
+.ct{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.ct ul{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:14px}
+.ct li{display:flex;gap:14px;align-items:flex-start;color:#d3d5e2}
+.ct li b{color:var(--t)}
+.dot{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:#22d3ee18;border:1px solid #22d3ee55;color:var(--c);font:700 12px 'Space Mono'}
+.call{padding:24px;background:linear-gradient(160deg,#16122a,var(--s1));border-color:#a855f755}
+.call .row{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--m)}
+.live{display:inline-flex;align-items:center;gap:8px;color:var(--ok);font-family:'Space Mono';font-size:12px}
+.live:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 #34d39988;animation:p 1.8s infinite}
+@keyframes p{70%{box-shadow:0 0 0 10px #34d39900}100%{box-shadow:0 0 0 0 #34d39900}}
+.bub{margin-top:14px;padding:12px 14px;border-radius:12px;font-size:14px;max-width:88%}
+.bub.a{background:#22d3ee14;border:1px solid #22d3ee33}
+.bub.c{background:var(--s2);border:1px solid var(--line2);margin-left:auto}
+.bub small{display:block;font-family:'Space Mono';font-size:10.5px;color:var(--m2);margin-bottom:3px;letter-spacing:.08em}
+/* pricing */
+.price{padding:30px;display:flex;flex-direction:column}
+.price.hl{border-color:#22d3ee66;background:linear-gradient(180deg,#0f1a22,var(--s1))}
+.price h3{font-size:30px}
+.amt{font-family:'Barlow Condensed';font-size:64px;font-weight:800;line-height:1;margin:16px 0 4px}
+.amt small{font-size:20px;color:var(--m)}
+.per{font-family:'Space Mono';font-size:12px;color:var(--m);letter-spacing:.08em}
+.price ul{padding:0;margin:20px 0 26px;list-style:none;display:grid;gap:10px;flex:1}
+.price li{font-size:14.5px;color:#d0d2de;padding-left:22px;position:relative}
+.price li:before{content:"";position:absolute;left:2px;top:9px;width:10px;height:5px;border-left:2px solid var(--c);border-bottom:2px solid var(--c);transform:rotate(-45deg)}
+.tag{display:inline-block;font-family:'Space Mono';font-size:11px;letter-spacing:.12em;padding:5px 9px;border-radius:6px;background:#a855f722;color:#d8b4fe;border:1px solid #a855f755}
+.sched{margin-top:14px;display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.sched div{background:var(--s2);border:1px solid var(--line2);border-radius:8px;padding:8px 4px;text-align:center;font-size:11px;color:var(--m)}
+.sched div b{display:block;font-family:'Barlow Condensed';font-size:19px;color:var(--t)}
+.sched div.now{border-color:var(--c)}
+/* order */
+.order{display:grid;grid-template-columns:1.45fr .85fr;gap:24px;align-items:start}
+.form{padding:30px}
+.step{font-family:'Space Mono';font-size:12px;letter-spacing:.14em;color:var(--c);margin:26px 0 12px;text-transform:uppercase}
+.step:first-child{margin-top:0}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fg .full{grid-column:1/-1}
+label.l{display:block;font-size:13px;color:var(--m);margin-bottom:6px}
+textarea.field{min-height:96px;resize:vertical}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{position:relative;display:block;cursor:pointer}
+.opt input{position:absolute;opacity:0}
+.opt .box{display:block;border:1px solid var(--line2);background:#07070b;border-radius:12px;padding:15px 16px;transition:border-color .15s,background .15s}
+.opt .box b{display:block;font-size:15px}
+.opt .box span{font-size:13px;color:var(--m)}
+.opt input:checked+.box{border-color:var(--c);background:#22d3ee0d}
+.opt input:focus-visible+.box{outline:2px solid var(--c);outline-offset:2px}
+.addon{margin-top:4px}
+.addon .box{display:flex;gap:14px;align-items:flex-start}
+.chk{flex:none;width:22px;height:22px;border-radius:6px;border:2px solid var(--line2);margin-top:2px;display:grid;place-items:center}
+.opt input:checked+.box .chk{background:var(--c);border-color:var(--c)}
+.opt input:checked+.box .chk:after{content:"";width:9px;height:5px;border-left:2px solid #07070b;border-bottom:2px solid #07070b;transform:rotate(-45deg) translate(1px,-1px)}
+#ctPw{display:none;margin-top:12px}
+.terms{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--m);margin-top:18px}
+.terms input{margin-top:3px;accent-color:var(--c);width:16px;height:16px}
+.err{display:none;margin-top:14px;padding:12px 14px;border-radius:10px;background:#ef44441a;border:1px solid #ef444466;color:#fecaca;font-size:14px}
+.sum{padding:26px;position:sticky;top:86px}
+.sum h3{font-size:26px;margin-bottom:16px}
+.line{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.line span:last-child{font-family:'Space Mono';white-space:nowrap}
+.line.sub{color:var(--m);font-size:13px}
+.tot{display:flex;justify-content:space-between;align-items:baseline;margin:16px 0 4px}
+.tot b{font-family:'Barlow Condensed';font-size:44px}
+.later{font-size:13px;color:var(--m);min-height:20px}
+.secure{font-size:12px;color:var(--m2);margin-top:14px;display:flex;gap:8px;align-items:center}
+/* faq */
+.faq{max-width:860px}
+details{border-bottom:1px solid var(--line);padding:18px 0}
+summary{cursor:pointer;font-weight:600;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";font-family:'Space Mono';color:var(--c)}
+details[open] summary:after{content:"-"}
+details p{color:var(--m);margin:12px 0 0}
+footer{border-top:1px solid var(--line);padding:40px 0;color:var(--m2);font-size:13px}
+footer .w{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.banner{display:none;background:#fbbf2418;border-bottom:1px solid #fbbf2455;color:#fde68a;font-size:14px;text-align:center;padding:10px 16px}
+@media(max-width:960px){.hero .w,.ct,.order{grid-template-columns:1fr}.g3{grid-template-columns:1fr}.g4{grid-template-columns:1fr 1fr}.sum{position:static}.hero{padding-top:56px}}
+@media(max-width:620px){.navl{display:none}.g4,.fg,.seg{grid-template-columns:1fr}.scanrow{flex-direction:column}.form,.sum,.price{padding:22px}section.sec{padding:70px 0}.sched{grid-template-columns:repeat(3,1fr)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="banner" id="cancelBanner">Checkout was canceled. Your details are still here — review and try again when you are ready.</div>
+<nav class="nav"><div class="w">
+  <a class="logo" href="#top">QUEEN<span>EE</span></a>
+  <div class="navl"><a href="#how">How it works</a><a href="#calltwin">CallTwin</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+  <a class="btn btn-p" href="#order" style="padding:11px 18px;font-size:14px">Get my website</a>
+</div></nav>
+
+<header class="hero" id="top"><div class="w">
+  <div>
+    <div class="eyebrow">HSW365 Media / Website + AI Receptionist</div>
+    <h1>Your business.<br><span class="grad">Built to win online.</span></h1>
+    <p class="lead">QUEENEE builds business owners a modern, mobile-first website that turns visitors into calls, bookings and sales. Add CallTwin and an AI receptionist answers every call, 24/7, the day you launch.</p>
+    <div class="ctas"><a class="btn btn-p" href="#order">Start my website — $500</a><a class="btn btn-g" href="#calltwin">See the CallTwin add-on</a></div>
+    <div class="proof"><div><b>$500</b>one-time website</div><div><b>24/7</b>calls answered</div><div><b>0</b>missed leads</div></div>
+  </div>
+  <div class="card scan" id="scan">
+    <div class="eyebrow">Free instant check</div>
+    <h3>How does your site score?</h3>
+    <p>Have a website already? Drop the address. QUEENEE reads it and shows what is costing you customers. No site yet? Skip straight to your order.</p>
+    <form id="scanForm" class="scanrow"><input class="field" id="scanUrl" placeholder="yourbusiness.com" aria-label="Your website address" required><button class="btn btn-p" id="scanBtn">Scan site</button></form>
+    <div id="scanOut">
+      <div class="scoreline"><div class="score" id="scScore">--</div><div style="flex:1"><div class="mono" style="font-size:12px;color:var(--m)" id="scDomain"></div><div class="meter"><i id="scBar" style="width:0"></i></div></div></div>
+      <ul class="fix" id="scFix"></ul>
+      <div style="margin-top:16px"><a class="btn btn-p" href="#order" id="scCta" style="width:100%">Fix all of this — start my rebuild</a></div>
+    </div>
+    <div class="note" id="scNote"></div>
+  </div>
+</div></header>
+
+<section class="sec" id="how"><div class="w">
+  <div class="sh"><div class="eyebrow">What you get</div><h2>A website that works <span class="grad">as hard as you do</span></h2><p>Whether you are starting from zero or replacing a site that stopped working years ago, QUEENEE delivers the full build — not a template you have to finish yourself.</p></div>
+  <div class="g3">
+    <article class="card feat"><div class="k">01 / DESIGN</div><h3>Mobile-first, premium look</h3><p>Most of your customers find you on their phone. Every page is designed for thumbs first, then scaled up for desktop.</p></article>
+    <article class="card feat"><div class="k">02 / CONVERSION</div><h3>Built to get the call</h3><p>Click-to-call, quote and booking buttons, service pages, reviews and FAQs arranged around one goal: the customer contacting you.</p></article>
+    <article class="card feat"><div class="k">03 / VISIBILITY</div><h3>Found on Google and AI</h3><p>Clean structure, page titles, descriptions and business info formatted so search engines and AI assistants can recommend you.</p></article>
+  </div>
+  <div class="g4" style="margin-top:18px">
+    <div class="card feat"><div class="k">STEP 1</div><h3>Order</h3><p>Tell us about your business in 3 minutes.</p></div>
+    <div class="card feat"><div class="k">STEP 2</div><h3>Build</h3><p>We design and write your site from your details.</p></div>
+    <div class="card feat"><div class="k">STEP 3</div><h3>Review</h3><p>You approve it or request changes.</p></div>
+    <div class="card feat"><div class="k">STEP 4</div><h3>Launch</h3><p>We connect your domain and go live.</p></div>
+  </div>
+</div></section>
+
+<section class="sec" id="calltwin"><div class="w ct">
+  <div>
+    <div class="eyebrow">Add-on / CallTwin</div>
+    <h2 style="font-size:clamp(40px,5vw,64px);font-weight:800;margin:14px 0">Your new website <span class="grad">brings calls.</span> Who answers them?</h2>
+    <p style="color:var(--m);font-size:17px;margin:0">Every missed call is a customer calling your competitor next. CallTwin is an AI receptionist trained on your business. It picks up day or night, answers questions, captures the lead and sends it to you.</p>
+    <ul>
+      <li><span class="dot">1</span><div><b>Answers 24/7.</b> Nights, weekends, holidays, while you are on a job.</div></li>
+      <li><span class="dot">2</span><div><b>Knows your business.</b> Services, hours, service area and pricing come straight from your website build.</div></li>
+      <li><span class="dot">3</span><div><b>Captures every lead.</b> Name, number and what they need — logged in your CallTwin dashboard.</div></li>
+      <li><span class="dot">4</span><div><b>Connected to your site.</b> Your website's call button rings CallTwin, set up for you at launch.</div></li>
+    </ul>
+  </div>
+  <div class="card call" aria-hidden="true">
+    <div class="row"><span class="live">LIVE CALL / 11:42 PM</span><span class="mono">CallTwin</span></div>
+    <div class="bub c"><small>CALLER</small>Hi, are you open tomorrow? My AC stopped working.</div>
+    <div class="bub a"><small>CALLTWIN</small>Sorry to hear that. We open at 7 AM and we do same-day AC repair. Can I get your name and address so a tech can call you first thing?</div>
+    <div class="bub c"><small>CALLER</small>Sure, it's Dana, 14 Park Ave.</div>
+    <div class="bub a"><small>CALLTWIN</small>Got it, Dana. You are first on the 7 AM list. The owner has your details now.</div>
+    <div class="row" style="margin-top:18px;border-top:1px solid var(--line2);padding-top:14px"><span>Lead captured and sent to owner</span><span class="mono" style="color:var(--ok)">SAVED</span></div>
+  </div>
+</div></section>
+
+<section class="sec" id="pricing"><div class="w">
+  <div class="sh"><div class="eyebrow">Pricing</div><h2>Simple. <span class="grad">No surprises.</span></h2><p>One price for the website. Add CallTwin at checkout if you want every call answered.</p></div>
+  <div class="g3" style="grid-template-columns:1fr 1fr">
+    <article class="card price">
+      <h3>Business website</h3>
+      <div class="amt" data-p="web">$500</div><div class="per">ONE-TIME / NEW OR REBUILD</div>
+      <ul><li>Custom design for your business</li><li>Mobile-first, fast, secure</li><li>Service pages, reviews, FAQ, contact and booking paths</li><li>Google and AI-ready structure</li><li>Domain connection and launch</li><li>Round of revisions before launch</li></ul>
+      <a class="btn btn-g" href="#order" data-pick="web">Order website only</a>
+    </article>
+    <article class="card price hl">
+      <div><span class="tag">RECOMMENDED</span></div>
+      <h3 style="margin-top:12px">Website + CallTwin</h3>
+      <div class="amt" data-p="bundleToday">$599<small> today</small></div><div class="per" data-p="bundleLater">THEN $99/MONTH FOR 5 MONTHS</div>
+      <div class="sched" id="sched"></div>
+      <ul><li>Everything in the website</li><li>CallTwin 24/7 AI receptionist</li><li>Trained on your business during the build</li><li>Your CallTwin dashboard login created at checkout</li><li>Ends automatically after the final payment — no cancel call needed</li></ul>
+      <a class="btn btn-p" href="#order" data-pick="bundle">Order website + CallTwin</a>
+    </article>
+  </div>
+  <p class="note" style="margin-top:16px">Larger project — multiple locations, portals, custom integrations? <a href="mailto:hsw365media@gmail.com?subject=QUEENEE%20custom%20website%20quote" style="color:var(--c)">Request a custom quote</a>.</p>
+</div></section>
+
+<section class="sec" id="order"><div class="w">
+  <div class="sh"><div class="eyebrow">Order</div><h2>Start your <span class="grad">website today</span></h2><p>Takes about 3 minutes. You pay securely through Stripe, then we get to work.</p></div>
+  <div class="order">
+    <form class="card form" id="orderForm" novalidate>
+      <div class="step">1 / Your website</div>
+      <div class="seg" role="radiogroup" aria-label="Website type">
+        <label class="opt"><input type="radio" name="siteType" value="rebuild" checked><span class="box"><b>Rebuild my site</b><span>I have a website that needs replacing</span></span></label>
+        <label class="opt"><input type="radio" name="siteType" value="new"><span class="box"><b>I need a new website</b><span>Starting from scratch</span></span></label>
+      </div>
+      <div id="urlWrap" style="margin-top:12px"><label class="l" for="url">Current website address</label><input class="field" id="url" name="url" placeholder="yourbusiness.com" autocomplete="url"></div>
+
+      <div class="step">2 / Your business</div>
+      <div class="fg">
+        <div><label class="l" for="business">Business name *</label><input class="field" id="business" name="business" required autocomplete="organization"></div>
+        <div><label class="l" for="industry">Industry / type of business</label><input class="field" id="industry" name="industry" placeholder="HVAC, salon, law firm..."></div>
+        <div class="full"><label class="l" for="location">City / service area</label><input class="field" id="location" name="location" placeholder="Vineland, NJ and 30 miles around"></div>
+        <div class="full"><label class="l" for="services">Main services or products</label><textarea class="field" id="services" name="services" placeholder="List what you sell or the services you offer"></textarea></div>
+        <div class="full"><label class="l" for="goal">What should the website do for you?</label><input class="field" id="goal" name="goal" placeholder="More calls, online booking, sell products, look more professional..."></div>
+        <div class="full"><label class="l" for="style">Look and feel (optional)</label><input class="field" id="style" name="style" placeholder="Colors, websites you like, logo status"></div>
+      </div>
+
+      <div class="step">3 / Your contact</div>
+      <div class="fg">
+        <div><label class="l" for="name">Your name *</label><input class="field" id="name" name="name" required autocomplete="name"></div>
+        <div><label class="l" for="phone">Phone</label><input class="field" id="phone" name="phone" type="tel" autocomplete="tel"></div>
+        <div class="full"><label class="l" for="email">Email *</label><input class="field" id="email" name="email" type="email" required autocomplete="email"></div>
+      </div>
+
+      <div class="step">4 / Add-on</div>
+      <label class="opt addon"><input type="checkbox" id="addCallTwin" name="addCallTwin"><span class="box"><span class="chk"></span><span><b>Add CallTwin 24/7 AI receptionist</b><span id="addonCopy">$99 today, then $99/month for 5 months. Ends automatically.</span></span></span></label>
+      <div id="ctPw"><label class="l" for="calltwinPassword">Create your CallTwin dashboard password (8+ characters)</label><input class="field" id="calltwinPassword" name="calltwinPassword" type="password" minlength="8" autocomplete="new-password"><div class="note">Your CallTwin login is your email above plus this password.</div></div>
+
+      <div class="step">5 / Anything else</div>
+      <textarea class="field" id="notes" name="notes" placeholder="Domain you own, social links, special requests"></textarea>
+      <label class="terms"><input type="checkbox" id="terms" name="terms"><span>I understand the website is a one-time $500 build<span id="termsAddon"> and that the CallTwin add-on charges $99 today plus $99 per month for 5 months, then stops automatically</span>.</span></label>
+      <div class="err" id="err" role="alert"></div>
+      <button class="btn btn-p" id="submitBtn" style="width:100%;margin-top:18px;font-size:16px;padding:17px">Continue to secure checkout</button>
+    </form>
+
+    <aside class="card sum" aria-live="polite">
+      <h3>Order summary</h3>
+      <div class="line"><span id="sumWebName">Website rebuild</span><span id="sumWeb">$500</span></div>
+      <div class="line" id="sumAddonRow" style="display:none"><span>CallTwin add-on / first month</span><span id="sumAddon">$99</span></div>
+      <div class="tot"><span style="color:var(--m)">Due today</span><b id="sumToday">$500</b></div>
+      <div class="later" id="sumLater">No recurring charges.</div>
+      <div class="secure">Secure payment by Stripe. Card details never touch our servers.</div>
+      <div class="note" style="margin-top:18px">Questions? <a href="mailto:hsw365media@gmail.com" style="color:var(--c)">hsw365media@gmail.com</a></div>
+    </aside>
+  </div>
+</div></section>
+
+<section class="sec" id="faq"><div class="w faq">
+  <div class="sh"><div class="eyebrow">FAQ</div><h2>Straight answers</h2></div>
+  <details><summary>I don't have a website at all. Can I still order?</summary><p>Yes. Choose "I need a new website" in the order form. We build it from the business details you give us.</p></details>
+  <details><summary>How long does it take?</summary><p>We confirm your build timeline by email right after your order, based on the size of your site. Larger projects are quoted separately.</p></details>
+  <details><summary>How does the CallTwin payment work?</summary><p id="faqAddon">$99 is charged today with your website. Then $99 is charged once a month for the next 5 months. After the final payment the plan ends on its own — nothing to cancel.</p></details>
+  <details><summary>Can I add CallTwin later?</summary><p>Yes, but adding it at checkout means it is trained on your business during the build and connected to your site's call button at launch.</p></details>
+  <details><summary>Do I own my website?</summary><p>Yes. The site and its content are yours. We help connect it to a domain you own.</p></details>
+  <details><summary>What if a monthly CallTwin payment fails?</summary><p>Stripe retries the card automatically. CallTwin pauses if the payment stays unpaid and resumes once it is updated.</p></details>
+</div></section>
+
+<footer><div class="w"><div><span class="logo" style="font-size:20px">QUEEN<span>EE</span></span> by HSW365 Media LLC</div><div>Contact: <a href="mailto:hsw365media@gmail.com">hsw365media@gmail.com</a></div></div></footer>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  let P={web:500,addon:99,months:5};
+  const fmt=n=>'$'+(Number.isInteger(n)?n:n.toFixed(2));
+  const form=$('#orderForm');
+
+  function paint(){
+    const today=P.web+P.addon;
+    $$('[data-p="web"]').forEach(e=>e.textContent=fmt(P.web));
+    $$('[data-p="bundleToday"]').forEach(e=>e.innerHTML=fmt(today)+'<small> today</small>');
+    $$('[data-p="bundleLater"]').forEach(e=>e.textContent='THEN '+fmt(P.addon)+'/MONTH FOR '+P.months+' MONTHS');
+    const copy=fmt(P.addon)+' today, then '+fmt(P.addon)+'/month for '+P.months+' months. Ends automatically.';
+    $('#addonCopy').textContent=copy;
+    $('#termsAddon').textContent=' and that the CallTwin add-on charges '+fmt(P.addon)+' today plus '+fmt(P.addon)+' per month for '+P.months+' months, then stops automatically';
+    $('#faqAddon').textContent=fmt(P.addon)+' is charged today with your website. Then '+fmt(P.addon)+' is charged once a month for the next '+P.months+' months. After the final payment the plan ends on its own — nothing to cancel.';
+    let h='<div class="now"><b>'+fmt(P.addon)+'</b>Today</div>';
+    for(let i=1;i<=P.months;i++)h+='<div><b>'+fmt(P.addon)+'</b>Month '+(i+1)+'</div>';
+    $('#sched').innerHTML=h;
+    $('#sched').style.gridTemplateColumns='repeat('+Math.min(P.months+1,6)+',1fr)';
+    summary();
+  }
+  function summary(){
+    const add=$('#addCallTwin').checked, isNew=form.siteType.value==='new';
+    $('#sumWebName').textContent=isNew?'New business website':'Website rebuild';
+    $('#sumWeb').textContent=fmt(P.web);
+    $('#sumAddonRow').style.display=add?'flex':'none';
+    $('#sumAddon').textContent=fmt(P.addon);
+    $('#sumToday').textContent=fmt(P.web+(add?P.addon:0));
+    $('#sumLater').textContent=add?'Then '+fmt(P.addon)+'/month for '+P.months+' months ('+fmt(P.addon*(P.months+1))+' CallTwin total). Stops automatically.':'No recurring charges.';
+    $('#ctPw').style.display=add?'block':'none';
+    $('#termsAddon').style.display=add?'inline':'none';
+    $('#urlWrap').style.display=isNew?'none':'block';
+  }
+  fetch('/api/config').then(r=>r.json()).then(c=>{P={web:c.websitePrice,addon:c.addon.monthly,months:c.addon.months};paint()}).catch(paint);
+  paint();
+
+  form.addEventListener('change',summary);
+  $$('[data-pick]').forEach(a=>a.addEventListener('click',()=>{$('#addCallTwin').checked=a.dataset.pick==='bundle';summary()}));
+  if(/canceled=/.test(location.search))$('#cancelBanner').style.display='block';
+
+  // save draft locally so a canceled checkout keeps the details
+  const KEY='queenee_draft';
+  try{const d=JSON.parse(localStorage.getItem(KEY)||'{}');Object.entries(d).forEach(([k,v])=>{const el=form.elements[k];if(!el||k==='calltwinPassword'||k==='terms')return;if(el instanceof RadioNodeList)el.value=v;else if(el.type==='checkbox')el.checked=!!v;else el.value=v});summary()}catch(e){}
+  form.addEventListener('input',()=>{try{const d={};[...form.elements].forEach(el=>{if(!el.name||el.name==='calltwinPassword'||el.name==='terms')return;if(el.type==='radio'){if(el.checked)d[el.name]=el.value}else if(el.type==='checkbox')d[el.name]=el.checked;else d[el.name]=el.value});localStorage.setItem(KEY,JSON.stringify(d))}catch(e){}});
+
+  // scanner
+  $('#scanForm').addEventListener('submit',async e=>{
+    e.preventDefault();const url=$('#scanUrl').value.trim();if(!url)return;
+    const b=$('#scanBtn');b.disabled=true;b.textContent='Scanning...';$('#scNote').textContent='';
+    try{
+      const r=await fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
+      const d=await r.json();if(!r.ok)throw Error(d.error||'Scan failed');
+      $('#scScore').textContent=d.score;$('#scDomain').textContent=d.domain.toUpperCase()+' / SCORE OUT OF 100';
+      $('#scBar').style.width=d.score+'%';
+      $('#scFix').innerHTML='';d.plan.slice(0,6).forEach(p=>{const li=document.createElement('li');li.textContent=p;$('#scFix').appendChild(li)});
+      $('#scanOut').style.display='block';
+    }catch(err){$('#scNote').textContent=err.message+' We can still rebuild it — continue to the order form.';$('#scanOut').style.display='none'}
+    finally{b.disabled=false;b.textContent='Scan site';form.siteType.value='rebuild';$('#url').value=url;summary()}
+  });
+
+  // order
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const err=$('#err');err.style.display='none';
+    const f=form.elements;
+    const body={siteType:form.siteType.value,url:f.url.value.trim(),business:f.business.value.trim(),industry:f.industry.value.trim(),location:f.location.value.trim(),services:f.services.value.trim(),goal:f.goal.value.trim(),style:f.style.value.trim(),name:f.name.value.trim(),phone:f.phone.value.trim(),email:f.email.value.trim(),notes:f.notes.value.trim(),addCallTwin:f.addCallTwin.checked,calltwinPassword:f.calltwinPassword.value,terms:f.terms.checked};
+    const bad=m=>{err.textContent=m;err.style.display='block';err.scrollIntoView({block:'center',behavior:'smooth'})};
+    if(!body.business||!body.name||!body.email)return bad('Business name, your name and email are required.');
+    if(body.siteType==='rebuild'&&!body.url)return bad('Enter your current website address, or choose "I need a new website".');
+    if(body.addCallTwin&&body.calltwinPassword.length<8)return bad('Choose a CallTwin dashboard password of at least 8 characters.');
+    if(!body.terms)return bad('Please confirm the order terms.');
+    const btn=$('#submitBtn');btn.disabled=true;btn.textContent='Preparing secure checkout...';
+    try{
+      const r=await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      const d=await r.json();if(!r.ok)throw Error(d.error||'Order failed');
+      try{localStorage.removeItem(KEY)}catch(e){}
+      location.href=d.redirect;
+    }catch(x){bad(x.message);btn.disabled=false;btn.textContent='Continue to secure checkout'}
+  });
+})();
+</script>
+</body>
+</html>

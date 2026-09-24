@@ -1,10 +1,18 @@
 {
-  "name": "queenee-ai-website-rebuilder",
-  "version": "2.0.0",
+  "name": "queenee",
+  "version": "4.0.0",
   "private": true,
-  "description": "QUEENEE AI Website Rebuilder backend",
+  "description": "QUEENEE — HSW365 website builder landing page, orders, Stripe checkout and CallTwin add-on",
   "main": "server.js",
-  "scripts": {"start":"node server.js"},
-  "engines": {"node": ">=20"},
-  "dependencies": {"cheerio":"^1.0.0","express":"^5.1.0"}
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "express": "^5.1.0",
+    "mongodb": "^6.10.0",
+    "stripe": "^17.0.0"
+  }
 }

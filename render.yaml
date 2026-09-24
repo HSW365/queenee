@@ -6,3 +6,30 @@ services:
     buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PUBLIC_BASE_URL
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: QUEENEE_ADMIN_TOKEN
+        generateValue: true
+      - key: CALLTWIN_API_URL
+        value: https://calltwin.onrender.com
+      - key: CALLTWIN_PARTNER_KEY
+        sync: false
+      - key: CALLTWIN_DASHBOARD_URL
+        sync: false
+      - key: WEBSITE_PRICE_CENTS
+        value: "50000"
+      - key: CALLTWIN_ADDON_CENTS
+        value: "9900"
+      - key: CALLTWIN_ADDON_MONTHS
+        value: "5"
+      - key: CALLTWIN_AFTER_PLAN
+        value: keep
