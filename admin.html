@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QUEENEE Admin</title><meta name="robots" content="noindex">
+<script src="config.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--s1:#101018;--s2:#15151f;--line:#23232f;--t:#f3f4f8;--m:#9a9cb0;--c:#22d3ee;--v:#a855f7;--y:#fbbf24;--ok:#34d399;--r:#ef4444}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font:14px/1.5 Inter,system-ui,sans-serif}
+.w{max-width:1280px;margin:0 auto;padding:24px 16px}
+h1{font:800 34px 'Barlow Condensed';text-transform:uppercase;margin:0}h1 span{color:var(--c)}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+input,select,textarea{background:#07070b;border:1px solid #2e2e3d;color:var(--t);border-radius:8px;padding:9px 11px;font:14px Inter}
+button{background:linear-gradient(110deg,var(--c),var(--v));color:#07070b;border:0;border-radius:8px;padding:9px 14px;font-weight:700;cursor:pointer}
+button.g{background:var(--s2);color:var(--t);border:1px solid #2e2e3d}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:18px}
+.st{background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:14px}.st b{display:block;font:800 30px 'Barlow Condensed'}.st span{color:var(--m);font:11px 'Space Mono';letter-spacing:.1em}
+.tbl{overflow-x:auto;background:var(--s1);border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;min-width:900px}th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--m);font:11px 'Space Mono';letter-spacing:.08em;text-transform:uppercase}
+tr.r{cursor:pointer}tr.r:hover{background:var(--s2)}
+.pill{display:inline-block;padding:2px 8px;border-radius:99px;font:11px 'Space Mono';border:1px solid #2e2e3d;white-space:nowrap}
+.ok{color:var(--ok);border-color:#34d39966}.wait{color:var(--y);border-color:#fbbf2466}.bad{color:#fecaca;border-color:#ef444466}
+.m{color:var(--m)}.mono{font-family:'Space Mono'}
+#detail{display:none;margin-top:18px;background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:20px}
+.dg{display:grid;grid-template-columns:1fr 1fr;gap:18px}pre{white-space:pre-wrap;background:#07070b;border:1px solid var(--line);border-radius:8px;padding:12px;font-size:12px;max-height:320px;overflow:auto}
+@media(max-width:800px){.dg{grid-template-columns:1fr}}
+</style>
+</head>
+<body><div class="w">
+<div class="bar"><h1>QUEEN<span>EE</span> Orders</h1>
+<form id="auth" style="display:flex;gap:8px"><input id="tok" type="password" placeholder="Admin token" autocomplete="off" aria-label="Admin token"><button>Load</button><button type="button" class="g" id="csv">Export CSV</button></form></div>
+<div class="stats" id="stats"></div>
+<div class="tbl"><table><thead><tr><th>Created</th><th>Order</th><th>Business</th><th>Contact</th><th>Site</th><th>Status</th><th>CallTwin</th><th>Today</th></tr></thead><tbody id="rows"><tr><td colspan="8" class="m">Enter the admin token (QUEENEE_ADMIN_TOKEN on the CallTwin Render service). First load can take up to a minute while the server wakes.</td></tr></tbody></table></div>
+<div id="detail"></div>
+</div>
+<script>
+const $=s=>document.querySelector(s);let TOKEN=sessionStorage.getItem('qadm')||'',DATA=[];
+const API=window.QUEENEE.api;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const usd=c=>'$'+((c||0)/100).toFixed(0);
+const cls=s=>/paid|delivered|active|completed|comp/.test(s)?'ok':/past_due|canceled|refunded/.test(s)?'bad':'wait';
+async function api(p,o={}){const r=await fetch(API+p,{...o,headers:{'Content-Type':'application/json','x-admin-token':TOKEN}});const d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.error||('HTTP '+r.status));return d}
+async function load(){$('#rows').innerHTML='<tr><td colspan="8" class="m">Loading...</td></tr>';try{DATA=await api('/api/queenee/admin/orders');sessionStorage.setItem('qadm',TOKEN);render()}catch(e){$('#rows').innerHTML='<tr><td colspan="8" class="m">'+esc(e.message)+'</td></tr>'}}
+function render(){
+  const paid=DATA.filter(o=>o.status!=='pending_payment'&&!o.comp),ct=DATA.filter(o=>o.addCallTwin&&['active','completed'].includes(o.addonPlanStatus));
+  const rev=paid.reduce((a,o)=>a+(o.amountPaidCents||0),0);
+  $('#stats').innerHTML=[['ORDERS',DATA.length],['PAID',paid.length],['AWAITING PAYMENT',DATA.filter(o=>o.status==='pending_payment').length],['CALLTWIN ACTIVE',ct.length],['CHECKOUT TOTAL',usd(rev)]].map(([k,v])=>'<div class="st"><span>'+k+'</span><b>'+v+'</b></div>').join('');
+  $('#rows').innerHTML=DATA.map(o=>'<tr class="r" data-id="'+esc(o.orderId)+'"><td class="mono">'+esc(new Date(o.createdAt).toLocaleString())+'</td><td class="mono">'+esc(o.orderId)+'</td><td><b>'+esc(o.business)+'</b><div class="m">'+esc(o.industry)+'</div></td><td>'+esc(o.name)+'<div class="m">'+esc(o.email)+'<br>'+esc(o.phone)+'</div></td><td>'+(o.siteType==='rebuild'?'Rebuild':'New')+'<div class="m">'+esc(o.url)+'</div></td><td><span class="pill '+cls(o.comp?'comp':o.status)+'">'+esc(o.comp?'comp':o.status)+'</span></td><td>'+(o.addCallTwin?'<span class="pill '+cls(o.addonPlanStatus||'')+'">'+esc(o.addonPlanStatus)+'</span><div class="m">'+(o.addonPaymentsMade||0)+'/'+(o.addonTotalPayments||0)+' paid</div>':'<span class="m">-</span>')+'</td><td class="mono">'+(o.amountPaidCents!=null?usd(o.amountPaidCents):'-')+'</td></tr>').join('')||'<tr><td colspan="8" class="m">No orders yet.</td></tr>';
+  document.querySelectorAll('tr.r').forEach(t=>t.onclick=()=>detail(t.dataset.id));
+}
+function detail(id){
+  const o=DATA.find(x=>x.orderId===id);if(!o)return;const d=$('#detail');d.style.display='block';
+  d.innerHTML='<div class="bar"><h1 style="font-size:26px">'+esc(o.business)+' <span class="mono" style="font-size:14px;color:var(--m)">'+esc(o.orderId)+'</span></h1></div><div class="dg"><div>'
+   +'<p><b>Contact:</b> '+esc(o.name)+' / <a style="color:var(--c)" href="mailto:'+esc(o.email)+'">'+esc(o.email)+'</a> / '+esc(o.phone)+'</p>'
+   +'<p><b>Location:</b> '+esc(o.location)+'</p><p><b>Services:</b> '+esc(o.services)+'</p><p><b>Goal:</b> '+esc(o.goal)+'</p><p><b>Notes:</b> '+esc(o.notes)+'</p>'
+   +'<p><b>Source:</b> '+esc(o.source)+(o.source==='stripe'?' <span style="color:#fecaca">(form data missed; contact customer for details'+(o.addCallTwin?' and send CallTwin login':'')+')</span>':'')+'</p>'
+   +'<p><b>Stripe:</b> <span class="mono">'+esc(o.stripeCustomerId||'-')+' / '+esc(o.stripeSubscriptionId||'-')+'</span></p>'
+   +'<label class="m">Status</label><br><select id="dst">'+['pending_payment','paid','in_progress','review','delivered','canceled','refunded'].map(s=>'<option'+(s===o.status?' selected':'')+'>'+s+'</option>').join('')+'</select> '
+   +'<input id="dlive" placeholder="Live site URL" value="'+esc(o.liveUrl||'')+'"><br><br><textarea id="dnotes" rows="3" style="width:100%" placeholder="Internal notes">'+esc(o.adminNotes||'')+'</textarea><br><button id="dsave">Save</button> <span id="dmsg" class="m"></span></div>'
+   +'<div><b>Raw order</b><pre>'+esc(JSON.stringify(o,null,2))+'</pre></div></div>';
+  $('#dsave').onclick=async()=>{try{await api('/api/queenee/admin/orders/'+encodeURIComponent(id),{method:'PATCH',body:JSON.stringify({status:$('#dst').value,liveUrl:$('#dlive').value,adminNotes:$('#dnotes').value})});$('#dmsg').textContent='Saved';load()}catch(e){$('#dmsg').textContent=e.message}};
+  d.scrollIntoView({behavior:'smooth'});
+}
+$('#auth').onsubmit=e=>{e.preventDefault();TOKEN=$('#tok').value.trim()||TOKEN;load()};
+$('#csv').onclick=()=>{const cols=['createdAt','orderId','status','business','name','email','phone','siteType','url','industry','location','addCallTwin','addonPlanStatus','addonPaymentsMade','amountPaidCents','source'];const csv=[cols.join(',')].concat(DATA.map(o=>cols.map(c=>'"'+String(o[c]??'').replace(/"/g,'""')+'"').join(','))).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='queenee-orders.csv';a.click()};
+if(TOKEN)load();
+</script>
+</body></html>

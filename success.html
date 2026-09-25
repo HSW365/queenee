@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>You're in — QUEENEE</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0a0f">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="config.js"></script>
+<style>
+:root{--bg:#0a0a0f;--s1:#101018;--s2:#15151f;--line:#23232f;--t:#f3f4f8;--m:#9a9cb0;--c:#22d3ee;--v:#a855f7;--y:#fbbf24;--ok:#34d399}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font:16px/1.6 Inter,system-ui,sans-serif;padding:40px 16px}
+.box{max-width:680px;margin:0 auto}.logo{font:800 26px 'Barlow Condensed';letter-spacing:.04em;color:var(--t);text-decoration:none}.logo span{color:var(--c)}
+.card{background:var(--s1);border:1px solid var(--line);border-radius:16px;padding:28px;margin-top:22px}
+h1{font:800 clamp(40px,7vw,60px)/.95 'Barlow Condensed';text-transform:uppercase;margin:10px 0 12px}
+.grad{background:linear-gradient(95deg,var(--c),var(--v));-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{font:12px 'Space Mono';letter-spacing:.18em;color:var(--c);text-transform:uppercase}
+.m{color:var(--m)}.mono{font-family:'Space Mono'}
+.row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px}.row span:last-child{font-family:'Space Mono';text-align:right}
+.pill{display:inline-block;padding:3px 10px;border-radius:99px;font:12px 'Space Mono';border:1px solid var(--line)}
+.pill.ok{color:var(--ok);border-color:#34d39966}.pill.wait{color:var(--y);border-color:#fbbf2466}.pill.bad{color:#fecaca;border-color:#ef444466}
+.btn{display:inline-block;margin-top:16px;padding:13px 20px;border-radius:10px;background:linear-gradient(110deg,var(--c),var(--v));color:#07070b;font-weight:700;text-decoration:none}
+ol{padding-left:20px;color:#d0d2de}ol li{margin:8px 0}
+.dots{display:flex;gap:6px;margin-top:10px}.dots i{flex:1;height:8px;border-radius:9px;background:var(--s2);border:1px solid var(--line)}.dots i.on{background:var(--c);border-color:var(--c)}
+a.lnk{color:var(--c)}
+</style>
+</head>
+<body><main class="box">
+<a class="logo" href="./">QUEEN<span>EE</span></a>
+<div class="card" id="main"><div class="eyebrow">Confirming</div><h1>One moment...</h1><p class="m">Checking your payment with Stripe. This can take up to a minute.</p></div>
+<div id="more"></div>
+</main>
+<script>
+(async function(){
+  const C=window.QUEENEE, q=new URLSearchParams(location.search), main=document.getElementById('main'), more=document.getElementById('more');
+  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const mail='<a class="lnk" href="mailto:'+esc(C.contactEmail)+'">'+esc(C.contactEmail)+'</a>';
+  let saved={};try{saved=JSON.parse(localStorage.getItem('queenee_order')||'{}')}catch(e){}
+  const id=q.get('order')||saved.id, token=q.get('t')||saved.token, sid=q.get('session_id');
+
+  async function get(){
+    const url=sid?C.api+'/api/queenee/session/'+encodeURIComponent(sid):(id&&token?C.api+'/api/queenee/orders/'+encodeURIComponent(id)+'?t='+encodeURIComponent(token):null);
+    if(!url)throw Error('no-ref');
+    const r=await fetch(url);if(!r.ok)throw Error(r.status===404?'pending':'error');return r.json();
+  }
+  let o=null;
+  for(let i=0;i<12;i++){ // backend may be waking up and the webhook may still be landing
+    try{o=await get();if(o.status!=='pending_payment')break}catch(e){if(e.message==='no-ref')break}
+    await new Promise(r=>setTimeout(r,5000));
+  }
+  if(!o||o.status==='pending_payment'){
+    main.innerHTML='<div class="eyebrow">Thank you</div><h1>Payment <span class="grad">received</span></h1><p class="m">If you just paid, your receipt is on the way from Stripe and your order is being logged. We will email you to start your build. Questions: '+mail+'.</p>';
+    return;
+  }
+  try{localStorage.removeItem('queenee_order')}catch(e){}
+  let h='<div class="eyebrow">Order '+esc(o.id)+'</div><h1>You are in. <span class="grad">Let\'s build.</span></h1>'
+   +'<p class="m">'+(o.comp?'Owner order confirmed':'Payment confirmed')+' for <b style="color:var(--t)">'+esc(o.business||o.email)+'</b>.</p>'
+   +'<div class="row"><span>'+(o.siteType==='rebuild'?'Website rebuild':'New business website')+(o.url?' / '+esc(o.url):'')+'</span><span>'+(o.comp?'COMP':'PAID')+'</span></div>';
+  if(o.calltwin)h+='<div class="row"><span>CallTwin add-on</span><span>'+esc(o.calltwin.paymentsMade)+' of '+esc(o.calltwin.totalPayments)+' paid</span></div>';
+  main.innerHTML=h;
+  let n='<div class="card"><div class="eyebrow">What happens next</div><ol><li>We review your details and reach out if we need your logo, photos or copy.</li><li>We build your site and send you a private preview link.</li><li>You approve or request changes.</li><li>We connect your domain and launch.</li></ol></div>';
+  if(o.calltwin){
+    const ct=o.calltwin, st=ct.status==='active'?['ok','ACTIVE']:ct.status==='past_due'?['bad','PAYMENT DUE']:['wait','ACTIVATING'];
+    let dots='';for(let i=0;i<ct.totalPayments;i++)dots+='<i class="'+(i<ct.paymentsMade?'on':'')+'"></i>';
+    n+='<div class="card"><div class="eyebrow">CallTwin / 24/7 AI receptionist</div><p style="margin:10px 0 4px">Status <span class="pill '+st[0]+'">'+st[1]+'</span></p>'
+      +'<div class="dots" aria-label="Payment plan progress">'+dots+'</div>'
+      +'<p class="m" style="font-size:14px">Payment '+esc(ct.paymentsMade)+' of '+esc(ct.totalPayments)+'. The plan stops on its own after the last payment.</p>'
+      +(ct.hasPassword
+        ?'<p class="m" style="font-size:14px">Log in with <b style="color:var(--t)">'+esc(o.email)+'</b> and the password you created at sign-up. When the dashboard asks for the API address, use <span class="mono" style="color:var(--t)">'+esc(C.api)+'</span>.</p><a class="btn" href="'+esc(C.calltwinDashboard)+'" target="_blank" rel="noopener">Open CallTwin dashboard</a>'
+        :'<p class="m" style="font-size:14px">We will email your CallTwin login to '+esc(o.email)+' shortly.</p>')
+      +'</div>';
+  }
+  more.innerHTML=n;
+})();
+</script>
+</body></html>
