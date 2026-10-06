@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>QUEENEE orders</title>
+<meta name="theme-color" content="#0a0a0f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0f'/%3E%3Ctext x='32' y='46' font-family='Arial Black,Arial' font-weight='900' font-size='40' text-anchor='middle' fill='%2322d3ee'%3EQ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="config.js"></script>
+<style>
+:root{--bg:#0a0a0f;--s1:#101018;--s2:#15151f;--line:#23232f;--line2:#2e2e3d;--t:#f3f4f8;--m:#a3a5b8;--m2:#74768c;--c:#22d3ee;--v:#a855f7;--r:#ef4444;--y:#fbbf24;--ok:#34d399}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t);font:15px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.w{max-width:1100px;margin:0 auto;padding:28px 18px 80px}
+h1{font-family:'Barlow Condensed';font-weight:800;text-transform:uppercase;font-size:44px;line-height:1;margin:0}
+h1 span{color:var(--c)}
+.mono{font-family:'Space Mono',monospace}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.btn{padding:11px 16px;border-radius:10px;border:1px solid var(--line2);background:var(--s2);color:var(--t);font:600 14px Inter;cursor:pointer}
+.btn:hover{border-color:var(--c)}
+.btn.p{background:linear-gradient(110deg,var(--c),var(--v));color:#07070b;border-color:transparent;font-weight:700}
+.field{background:#07070b;border:1px solid var(--line2);color:var(--t);border-radius:10px;padding:12px 14px;font:16px Inter;outline:none;width:100%}
+.field:focus{border-color:var(--c)}
+:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+.login{max-width:440px;margin:12vh auto 0;background:var(--s1);border:1px solid var(--line2);border-radius:18px;padding:26px}
+.login p{color:var(--m);margin:8px 0 18px}
+.login form{display:grid;gap:12px}
+.err{color:#fecaca;font-size:14px;min-height:20px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.stat{background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.stat b{display:block;font-family:'Barlow Condensed';font-size:38px;line-height:1}
+.stat span{font-size:12.5px;color:var(--m)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.bar select,.bar input{width:auto;flex:1;min-width:160px}
+.order{background:var(--s1);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden}
+.order summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:110px 1fr auto auto;gap:14px;align-items:center;padding:14px 16px}
+.order summary::-webkit-details-marker{display:none}
+.oid{font-family:'Space Mono',monospace;font-weight:700;color:var(--c);font-size:13px}
+.who b{display:block}
+.who span{color:var(--m);font-size:13px}
+.amt{font-family:'Barlow Condensed';font-weight:800;font-size:26px}
+.pill{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;padding:5px 9px;border-radius:6px;border:1px solid var(--line2);color:var(--m);white-space:nowrap}
+.pill.payment_reported{color:var(--y);border-color:#fbbf2466;background:#fbbf2414}
+.pill.paid,.pill.delivered{color:var(--ok);border-color:#34d39966;background:#34d39914}
+.pill.in_progress{color:var(--c);border-color:#22d3ee66;background:#22d3ee14}
+.pill.canceled{color:#fca5a5;border-color:#ef444466}
+.body{border-top:1px solid var(--line);padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px 24px}
+.kv span{display:block;font-size:12px;color:var(--m2)}
+.kv div{word-break:break-word;white-space:pre-wrap}
+.kv.full{grid-column:1/-1}
+.acts{grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-top:1px solid var(--line);padding-top:14px;margin-top:4px}
+.acts select{width:auto}
+.empty{padding:50px 20px;text-align:center;color:var(--m);background:var(--s1);border:1px dashed var(--line2);border-radius:14px}
+a{color:var(--c)}
+.hide{display:none!important}
+@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}.order summary{grid-template-columns:1fr auto}.order summary .oid{grid-column:1/-1}.body{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="w">
+  <div id="login" class="login">
+    <h1>QUEEN<span>EE</span> orders</h1>
+    <p>Enter your owner key to see sign-ups and mark payments.</p>
+    <form id="lf"><input class="field" id="key" type="password" autocomplete="current-password" placeholder="Owner key" aria-label="Owner key"><button class="btn p">Open orders</button><div class="err" id="lerr" role="alert"></div></form>
+  </div>
+
+  <div id="app" class="hide">
+    <div class="top">
+      <h1>QUEEN<span>EE</span> orders</h1>
+      <div style="display:flex;gap:10px"><button class="btn" id="refresh">Refresh</button><button class="btn" id="csv">Download CSV</button><button class="btn" id="out">Lock</button></div>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="bar">
+      <input class="field" id="q" placeholder="Search name, email, order number" aria-label="Search orders">
+      <select class="field" id="fs" aria-label="Filter by status"><option value="">All statuses</option></select>
+    </div>
+    <div id="list"></div>
+  </div>
+</div>
+<script>
+(function(){
+  const C=window.QUEENEE,$=s=>document.querySelector(s);
+  const STATUS={new:'Signed up, not paid',checkout_started:'Started paying',payment_reported:'Says they paid',paid:'Paid',in_progress:'Building',delivered:'Delivered',canceled:'Canceled'};
+  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const fmt=n=>'$'+Number(n||0).toLocaleString('en-US');
+  let key='',orders=[];
+  try{key=sessionStorage.getItem('queenee_key')||''}catch(e){}
+
+  async function api(body){
+    const r=await fetch(C.api,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,key})});
+    const d=await r.json().catch(()=>({}));
+    if(!r.ok)throw Object.assign(Error(d.error||'Request failed'),{status:r.status});
+    return d;
+  }
+  async function load(){
+    const d=await api({action:'admin_list'});orders=d.orders;
+    $('#login').classList.add('hide');$('#app').classList.remove('hide');render();
+  }
+  function render(){
+    const paid=orders.filter(o=>['paid','in_progress','delivered'].includes(o.status)&&!o.comp);
+    $('#stats').innerHTML=[
+      [orders.length,'Sign-ups'],
+      [orders.filter(o=>o.status==='payment_reported').length,'Payments to confirm'],
+      [paid.length,'Paid orders'],
+      [fmt(paid.reduce((s,o)=>s+o.amount_due,0)),'Collected']
+    ].map(([b,s])=>'<div class="stat"><b>'+esc(b)+'</b><span>'+s+'</span></div>').join('');
+    const q=$('#q').value.trim().toLowerCase(),fs=$('#fs').value;
+    const rows=orders.filter(o=>(!fs||o.status===fs)&&(!q||[o.id,o.name,o.email,o.project_name,o.phone].join(' ').toLowerCase().includes(q)));
+    if(!rows.length){$('#list').innerHTML='<div class="empty">'+(orders.length?'No orders match that search.':'No sign-ups yet. New orders from the QUEENEE site show up here.')+'</div>';return}
+    const kv=(k,v,full)=>v?'<div class="kv'+(full?' full':'')+'"><span>'+k+'</span><div>'+v+'</div></div>':'';
+    $('#list').innerHTML=rows.map(o=>{
+      const a=o.analysis,site=a?(a.error?'Could not read site: '+esc(a.error):[a.title&&'Title: '+esc(a.title),(a.findings||[]).map(esc).join(' ')].filter(Boolean).join('\n')):'';
+      return '<details class="order" data-id="'+esc(o.id)+'"><summary>'
+        +'<span class="oid">'+esc(o.id)+'</span>'
+        +'<span class="who"><b>'+esc(o.project_name)+'</b><span>'+esc(o.name)+' / '+esc(o.client_type)+' / '+new Date(o.created_at).toLocaleString()+'</span></span>'
+        +'<span class="amt">'+(o.comp?'Comp':fmt(o.amount_due))+'</span>'
+        +'<span class="pill '+esc(o.status)+'">'+esc(STATUS[o.status]||o.status)+'</span></summary>'
+        +'<div class="body">'
+        +kv('Email','<a href="mailto:'+esc(o.email)+'?subject='+encodeURIComponent('Your QUEENEE website, order '+o.id)+'">'+esc(o.email)+'</a>')
+        +kv('Phone',o.phone&&'<a href="tel:'+esc(o.phone)+'">'+esc(o.phone)+'</a>')
+        +kv('Package',o.plan==='bundle'?'Website + CallTwin':'Website')
+        +kv('Paying by',esc({card:'Card (check Stripe)',cashapp:'Cash App',zelle:'Zelle'}[o.pay_method]||''))
+        +kv('Site',o.site_type==='rebuild'?'Rebuild of '+esc(o.current_url):'New website')
+        +kv('Type',esc(o.category))+kv('Location',esc(o.location))+kv('Goal',esc(o.goal))
+        +kv('Links / services',esc(o.links),1)+kv('Notes',esc(o.notes),1)+kv('Current site check',site,1)
+        +'<div class="acts"><select class="field st" aria-label="Order status">'+Object.keys(STATUS).map(s=>'<option value="'+s+'"'+(s===o.status?' selected':'')+'>'+STATUS[s]+'</option>').join('')+'</select>'
+        +'<button class="btn p save">Save status</button><span class="msg" style="color:var(--m);font-size:13px"></span></div>'
+        +'</div></details>';
+    }).join('');
+  }
+  $('#fs').innerHTML+=Object.keys(STATUS).map(s=>'<option value="'+s+'">'+STATUS[s]+'</option>').join('');
+  $('#q').oninput=render;$('#fs').onchange=render;
+  $('#refresh').onclick=()=>load().catch(e=>alert(e.message));
+  $('#out').onclick=()=>{key='';try{sessionStorage.removeItem('queenee_key')}catch(e){}location.reload()};
+  $('#list').addEventListener('click',async e=>{
+    if(!e.target.classList.contains('save'))return;
+    const box=e.target.closest('.order'),id=box.dataset.id,status=box.querySelector('.st').value,msg=box.querySelector('.msg');
+    e.target.disabled=true;msg.textContent='Saving...';
+    try{await api({action:'admin_update',id,status});const o=orders.find(x=>x.id===id);o.status=status;render();const nb=document.querySelector('.order[data-id="'+id+'"]');if(nb)nb.open=true}
+    catch(x){msg.textContent=x.message;e.target.disabled=false}
+  });
+  $('#csv').onclick=()=>{
+    const cols=['id','created_at','status','client_type','site_type','plan','amount_due','pay_method','name','email','phone','project_name','category','location','current_url','goal','links','notes'];
+    const cell=v=>{let s=String(v??'');if(/^[=+\-@\t\r]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};
+    const csv=[cols.join(','),...orders.map(o=>cols.map(c=>cell(o[c])).join(','))].join('\r\n');
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='queenee-orders.csv';a.click();
+  };
+  $('#lf').addEventListener('submit',async e=>{
+    e.preventDefault();key=$('#key').value.trim();$('#lerr').textContent='';
+    try{await load();try{sessionStorage.setItem('queenee_key',key)}catch(x){}}
+    catch(x){$('#lerr').textContent=x.status===401?'That key is not right.':x.message}
+  });
+  if(key)load().catch(()=>{key=''});
+})();
+</script>
+</body>
+</html>

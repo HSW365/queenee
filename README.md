@@ -1,78 +1,45 @@
-# QUEENEE — HSW365 Website Rebuild System
+# QUEENEE: HSW365 website building
 
-QUEENEE is the customer-facing website rebuild product: analyze an existing public business website, capture a project brief, route the $500 one-time payment, and manage the intake through a protected admin API.
+QUEENEE is the landing page HSW365 sends traffic to. It sells website builds to indie artists, business owners and anyone who needs a site, with CallTwin as an add-on for businesses.
 
-## Product model
+Live at **https://hsw365.github.io/queenee/** (GitHub Pages, `main` branch).
 
-- **QUEENEE Website Rebuild:** $500 one-time standard offer.
-- **Custom Website Build:** scope-based quote for larger businesses, portals, multi-location sites and advanced integrations.
-- **CallTwin:** separate 24/7 AI receptionist. It can be purchased independently or offered as an upsell. The products are intentionally not bundled.
+| Package | Price |
+|---|---|
+| Website (new or rebuild) | $500 one-time |
+| Website + CallTwin | $599 today, then $99/month for 5 months |
 
-## What is working
+## How it works
 
-1. Public website analyzer with SSRF protection and a 10-second fetch timeout.
-2. Customer intake form for owner, business, website, goals, services and notes.
-3. Project IDs generated server-side and intake records stored by the backend.
-4. Stripe payment-link routing through `/api/checkout` and `/api/config`.
-5. Protected admin endpoints using `QUEENEE_ADMIN_TOKEN`.
-6. `/health` endpoint for deployment monitoring.
-7. Render deployment configuration.
-8. GitHub Actions smoke test on every push and pull request to `main`.
-9. No Twilio dependency.
+1. A visitor clicks **Sign up**, picks a package and fills in who they are (artist, business or something else).
+2. The order is saved and they get an order number (`Q-XXXXXXX`).
+3. They pay by **Cash App**, **Zelle** or **card (Stripe)** and put the order number in the note.
+4. The order shows up in `admin.html`, where HSW365 marks it paid, building and delivered.
 
-## Local run
-
-```bash
-npm install
-npm start
+```
+GitHub Pages (this repo)                 Supabase (klipit project)
+index.html  sign-up popup   ───────▶  edge function "queenee"  ──▶  table queenee_orders
+admin.html  order list      ───────▶  (owner key required)          table queenee_settings (payment handles)
 ```
 
-Open `http://localhost:3000`.
+## Files
 
-## Environment variables
+- `index.html`: landing page and sign-up popup. `index-v2.html` is a copy the publish workflow reads; keep the two identical.
+- `config.js`: backend URL, the prices shown on the page, CallTwin link, contact email.
+- `admin.html`: order list, status updates, CSV export. Needs the owner key.
+- `supabase/functions/queenee/index.ts`: the backend (source of the deployed edge function).
+- `server.js`, `pay.html`, `render.yaml`: the earlier Node version. Not used by the live site.
 
-- `PORT` — supplied by Render automatically.
-- `STRIPE_PAYMENT_URL` — optional override for the live $500 Stripe Payment Link. The repository currently contains the configured payment-link fallback.
-- `QUEENEE_ADMIN_TOKEN` — required to use protected project-management endpoints.
+## Changing things
 
-## API
+- **Cash App, Zelle or Stripe link:** edit row `id = 1` in the `queenee_settings` table. No redeploy needed.
+- **Prices:** change `prices` in `config.js` and `PRICES` in the edge function so they match.
+- **Owner key:** the edge function stores only the sha256 of the key in `ADMIN_HASH`. To rotate it, hash a new key and redeploy.
 
-### Analyze a site
+Orders placed with an owner email (`hsw365media@gmail.com`, `hoodstarent365@gmail.com`) are comped and skip payment.
 
-`POST /api/analyze`
+## Not automatic yet
 
-```json
-{"url":"https://example.com"}
-```
-
-Returns title, description, headings, navigation/link counts, CTA count, image/form counts and a rebuild plan.
-
-### Create a project
-
-`POST /api/intake`
-
-```json
-{"name":"Owner","email":"owner@example.com","business":"Example Business","url":"https://example.com","goal":"Generate more leads","services":"Service A, Service B","notes":"Need a stronger booking flow"}
-```
-
-Returns a project ID, analysis and payment URL.
-
-### Payment
-
-`GET /api/checkout` redirects to the configured Stripe Payment Link.
-
-### Admin
-
-Send `x-queenee-admin: YOUR_TOKEN`.
-
-- `GET /api/intakes` — latest 100 projects.
-- `GET /api/intake/:id` — one project.
-- `PATCH /api/intake/:id` with `{ "status": "in-progress" }` — update project status.
-
-## Render
-
-`render.yaml` runs `npm install`, starts `node server.js`, and monitors `/health`. Add `QUEENEE_ADMIN_TOKEN` and, if desired, `STRIPE_PAYMENT_URL` in the Render environment settings rather than committing secrets.
-
-## Important production note
-
-The default intake store is a JSON file. This is suitable for an initial deployment but Render's filesystem can be ephemeral. For production scale, replace `readData/writeData` with Supabase/Postgres or another persistent database. The API contract is already separated so that storage can be swapped without redesigning the customer UI.
+- Card payments are matched by hand: Stripe checkout carries the order number as the client reference, and the order is marked paid in `admin.html`.
+- CallTwin monthly payments are billed by HSW365; there is no auto-renewing subscription behind the $99/month.
+- New orders do not send an email alert. Check `admin.html`.
