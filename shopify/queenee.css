@@ -7,7 +7,7 @@
 .qn ul{list-style:none;padding:0;margin:0}
 .qn li{margin:0}
 .qn :focus-visible{outline:2px solid var(--c);outline-offset:3px}
-html,body{overflow-x:clip}
+
 #qn{--pad:max(48px,calc((100vw - 1180px)/2));position:relative;background:var(--bg);overflow:hidden;width:100vw;max-width:none;margin:0 0 0 calc(50% - 50vw)}
 #qn .qn-eyebrow,.qn .qn-eyebrow{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--c)}
 .qn .qn-grad{background:linear-gradient(95deg,var(--c),var(--v));-webkit-background-clip:text;background-clip:text;color:transparent}
