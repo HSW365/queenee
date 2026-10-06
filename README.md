@@ -9,6 +9,8 @@ Live at **https://hsw365.github.io/queenee/** (GitHub Pages, `main` branch).
 | Website (new or rebuild) | $500 one-time |
 | Website + CallTwin | $599 today, then $99/month for 5 months |
 
+Prices are not shown on the landing page. Visitors see them in the sign-up popup.
+
 ## How it works
 
 1. A visitor clicks **Sign up**, picks a package and fills in who they are (artist, business or something else).
