@@ -9,14 +9,15 @@ const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const ADMIN_HASH = "9d0f85caeedce9a45840b764d79d0261727fe93766fc9290a842c04372bf623a";
 
 // voice: Voice AI Agent, billed monthly. First month is due at sign-up.
-const PRICES = { website: 500, addon: 99, addonMonths: 5, voice: 997, voiceMinutes: 5000 };
+// video: Video Platform (your own video and streaming network), billed monthly.
+const PRICES = { website: 500, addon: 99, addonMonths: 5, voice: 997, voiceMinutes: 5000, video: 146 };
 const VOICE_BUCKET = "queenee-voice";
 const VOICE_MAX_FILES = 8;
 // Payment handles live in the queenee_settings table so they can change without a redeploy.
 async function paymentSettings() {
-  const r = await db("queenee_settings?select=stripe_link,stripe_voice_link,cashapp_tag,zelle_handle,payee&id=eq.1");
+  const r = await db("queenee_settings?select=stripe_link,stripe_voice_link,stripe_video_link,cashapp_tag,zelle_handle,payee&id=eq.1");
   const s = r[0] || {};
-  return { stripe: s.stripe_link || "", stripeVoice: s.stripe_voice_link || "", cashtag: s.cashapp_tag || "", zelle: s.zelle_handle || "", payee: s.payee || "HSW365 Media LLC" };
+  return { stripe: s.stripe_link || "", stripeVoice: s.stripe_voice_link || "", stripeVideo: s.stripe_video_link || "", cashtag: s.cashapp_tag || "", zelle: s.zelle_handle || "", payee: s.payee || "HSW365 Media LLC" };
 }
 const OWNER_EMAILS = ["hsw365media@gmail.com", "hoodstarent365@gmail.com"];
 const STATUSES = ["new", "checkout_started", "payment_reported", "paid", "in_progress", "delivered", "canceled"];
@@ -197,8 +198,8 @@ async function createOrder(body: Record<string, unknown>, req: Request) {
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) throw new UserError("Enter a valid email address.");
 
   const clientType = ["artist", "business", "other"].includes(String(body.clientType)) ? String(body.clientType) : "business";
-  const siteType = body.siteType === "rebuild" && body.plan !== "voice" ? "rebuild" : "new";
-  const plan = body.plan === "bundle" ? "bundle" : body.plan === "voice" ? "voice" : "website";
+  const siteType = body.siteType === "rebuild" && body.plan !== "voice" && body.plan !== "video" ? "rebuild" : "new";
+  const plan = ["bundle", "voice", "video"].includes(String(body.plan)) ? String(body.plan) : "website";
   const currentUrl = siteType === "rebuild" ? normalizeUrl(String(body.currentUrl || "")) : "";
   if (siteType === "rebuild" && !currentUrl) throw new UserError('Enter your current website address, or choose "I need a new website".');
 
@@ -215,7 +216,7 @@ async function createOrder(body: Record<string, unknown>, req: Request) {
   }
 
   const comp = OWNER_EMAILS.includes(email);
-  const amountDue = comp ? 0 : plan === "voice" ? PRICES.voice : PRICES.website + (plan === "bundle" ? PRICES.addon : 0);
+  const amountDue = comp ? 0 : plan === "voice" ? PRICES.voice : plan === "video" ? PRICES.video : PRICES.website + (plan === "bundle" ? PRICES.addon : 0);
   const token = [...crypto.getRandomValues(new Uint8Array(16))].map((b) => b.toString(16).padStart(2, "0")).join("");
   const row = {
     id: newId(), token, status: comp ? "paid" : "new", client_type: clientType, site_type: siteType, plan,

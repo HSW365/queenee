@@ -153,8 +153,46 @@ h1,h2,h3{font-family:'Barlow Condensed',Inter,sans-serif;text-transform:uppercas
 .va-uses p{margin:0;color:var(--m);font-size:14.5px}
 @media (max-width:900px){.va-top{grid-template-columns:1fr}.va-stats{grid-template-columns:1fr 1fr}.va-stats div:nth-child(3){border-left:0}.va-stats div:nth-child(n+3){border-top:1px solid var(--line2)}.va-uses{grid-template-columns:1fr}.va-stats div{padding:18px 16px;min-width:0}.va-stats b{font-size:28px}.va-stats span{font-size:10px}.va-top>div{min-width:0}}
 
+/* video platform */
+.vp-top{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
+.vp-top h2{font-size:clamp(46px,6vw,84px);margin:14px 0 18px}
+.vp-app{padding:0;overflow:hidden;border-color:#a855f755;background:#08080d}
+.vp-bar{display:flex;align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid var(--line2);font-size:12px;color:var(--m)}
+.vp-bar b{font-family:'Barlow Condensed';font-size:20px;letter-spacing:.04em;color:var(--t);margin-right:auto}
+.vp-bar b span{color:var(--v)}
+.vp-bar i{font-style:normal;font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.1em}
+.vp-search{flex:0 1 180px;height:26px;border-radius:7px;border:1px solid var(--line2);background:var(--s1)}
+.vp-body{display:grid;grid-template-columns:1fr 150px;gap:12px;padding:14px}
+.vp-hero{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:radial-gradient(90% 120% at 20% 10%,#a855f755,transparent 60%),radial-gradient(80% 100% at 90% 90%,#22d3ee44,transparent 60%),linear-gradient(140deg,#1b1530,#0d0d16)}
+.vp-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#000a,transparent 55%)}
+.vp-play{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:#ffffffe6;z-index:1}
+.vp-play:before{content:"";position:absolute;left:22px;top:17px;border-left:18px solid #0a0a0f;border-top:11px solid transparent;border-bottom:11px solid transparent}
+.vp-cap{position:absolute;left:14px;right:14px;bottom:12px;z-index:1}
+.vp-cap b{display:block;font-family:'Barlow Condensed';font-size:22px;text-transform:uppercase;line-height:1}
+.vp-cap span{font-size:11.5px;color:#d0d2de}
+.vp-live{position:absolute;left:12px;top:12px;z-index:1;font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.1em;background:var(--r);color:#fff;padding:3px 7px;border-radius:5px}
+.vp-chat{display:flex;flex-direction:column;gap:6px;font-size:11.5px;color:var(--m)}
+.vp-chat b{color:var(--c);font-weight:600}
+.vp-chat .h{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--m2)}
+.vp-chat p{margin:0;padding:6px 8px;border-radius:7px;background:var(--s1);border:1px solid var(--line)}
+.vp-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 14px 14px}
+.vp-row div{aspect-ratio:16/10;border-radius:8px;border:1px solid var(--line2);position:relative;overflow:hidden}
+.vp-row div:nth-child(1){background:linear-gradient(140deg,#2a1840,#12121b)}
+.vp-row div:nth-child(2){background:linear-gradient(140deg,#0f2a33,#12121b)}
+.vp-row div:nth-child(3){background:linear-gradient(140deg,#331a1a,#12121b)}
+.vp-row div:nth-child(4){background:linear-gradient(140deg,#2e2810,#12121b)}
+.vp-row span{position:absolute;left:7px;bottom:6px;font-size:10px;color:#e4e5ee;font-weight:600}
+.vp-row em{position:absolute;right:6px;bottom:6px;font-style:normal;font-family:'Space Mono',monospace;font-size:9.5px;background:#000b;padding:1px 4px;border-radius:3px}
+.vp-feat{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:56px;background:var(--line2);border:1px solid var(--line2);border-radius:14px;overflow:hidden}
+.vp-feat article{background:var(--s1);padding:22px}
+.vp-feat .k{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--c)}
+.vp-feat h3{font-size:24px;margin:8px 0 6px}
+.vp-feat p{margin:0;color:var(--m);font-size:14px}
+@media (max-width:900px){.vp-top{grid-template-columns:1fr}.vp-body{grid-template-columns:1fr}.vp-chat{display:none}.vp-feat{grid-template-columns:1fr 1fr}.vp-top>div{min-width:0}}
+@media (max-width:560px){.vp-feat{grid-template-columns:1fr}.vp-row{grid-template-columns:1fr 1fr}.vp-search{display:none}}
+
 /* pricing */
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.plans{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .price{padding:30px;display:flex;flex-direction:column}
 .price.hl{border-color:#22d3ee66;background:linear-gradient(180deg,#0f1a22,var(--s1))}
 .price h3{font-size:30px}
@@ -192,7 +230,7 @@ footer a:hover{color:var(--t)}
 .x:hover{border-color:var(--c)}
 .mbox h2{font-size:clamp(34px,5vw,48px);margin:10px 0 6px;padding-right:44px}
 .mbox .sub{color:var(--m);margin:0 0 22px}
-.pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pkgs{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .pk{position:relative;display:flex;flex-direction:column;text-align:left;cursor:pointer;background:#07070b;border:1px solid var(--line2);border-radius:16px;padding:22px;color:var(--t);transition:border-color .15s,transform .15s}
 .pk:hover{border-color:var(--c);transform:translateY(-2px)}
 .pk.hl{border-color:#22d3ee66;background:linear-gradient(180deg,#0f1a22,#07070b)}
@@ -298,7 +336,7 @@ textarea.field{min-height:84px;resize:vertical}
 <body>
 <nav class="nav"><div class="w">
   <a class="logo" href="#top">QUEEN<span>EE</span></a>
-  <div class="navl"><a href="#who">Who it's for</a><a href="#calltwin">CallTwin</a><a href="#voice">Voice AI</a><a href="#pricing">Packages</a><a href="#faq">FAQ</a></div>
+  <div class="navl"><a href="#who">Who it's for</a><a href="#calltwin">CallTwin</a><a href="#voice">Voice AI</a><a href="#video">Video platform</a><a href="#pricing">Packages</a><a href="#faq">FAQ</a></div>
   <button class="btn btn-p" data-open style="padding:11px 18px;font-size:14px">Sign up</button>
 </div></nav>
 
@@ -407,9 +445,38 @@ textarea.field{min-height:84px;resize:vertical}
     <article class="card"><div class="k">CUSTOM</div><h3>Built for your flow</h3><p>Your script, your questions, your handoff rules. Nothing generic.</p></article>
   </div>
 </div></section>
+<section class="sec" id="video"><div class="w">
+  <div class="va-fig"><span><b>FIG. 02</b> / Video platform</span><span>by HSW365</span></div>
+  <div class="vp-top">
+    <div>
+      <div class="eyebrow">New service / Your own video network</div>
+      <h2>Launch your own <span class="grad">video platform</span></h2>
+      <p class="lead">Your own place to watch, stream and earn, on your domain and under your brand. <b>Uploads, channels, shorts, live streams, music and merch</b> in one platform you own, built for a community instead of renting space on someone else's.</p>
+      <div class="ctas"><button class="btn btn-p" data-open="video">Launch my platform</button><a class="btn btn-g" href="#pricing">See packages</a></div>
+    </div>
+    <div class="card vp-app" aria-hidden="true">
+      <div class="vp-bar"><b>YOUR<span>TV</span></b><span class="vp-search"></span><i>LIVE</i><i>SHORTS</i><i>MUSIC</i></div>
+      <div class="vp-body">
+        <div class="vp-hero"><span class="vp-live">LIVE</span><span class="vp-play"></span><div class="vp-cap"><b>Friday night showcase</b><span>Your channel / 2.4K watching</span></div></div>
+        <div class="vp-chat"><span class="h">LIVE CHAT</span><p><b>dre_23</b> this set is crazy</p><p><b>kia.m</b> run it back</p><p><b>tone</b> just subscribed</p><p><b>jay</b> merch link?</p></div>
+      </div>
+      <div class="vp-row"><div><span>Episode 4</span><em>24:10</em></div><div><span>Behind the scenes</span><em>8:42</em></div><div><span>New single</span><em>3:31</em></div><div><span>Live replay</span><em>1:02:15</em></div></div>
+    </div>
+  </div>
+  <div class="vp-feat">
+    <article><div class="k">WATCH</div><h3>Videos and channels</h3><p>Creators upload, build a channel and get followed. Categories, search and trending.</p></article>
+    <article><div class="k">LIVE</div><h3>Live streaming</h3><p>Go live with chat, then the stream saves as a replay on the channel.</p></article>
+    <article><div class="k">SHORT</div><h3>Shorts</h3><p>Vertical short videos in a swipe feed, made for phones.</p></article>
+    <article><div class="k">EARN</div><h3>Get paid</h3><p>Paid memberships, pay-per-view and tips, paid out to you.</p></article>
+    <article><div class="k">MUSIC</div><h3>Music section</h3><p>Artists post songs and videos, and fans stream them in one place.</p></article>
+    <article><div class="k">SHOP</div><h3>Merch store</h3><p>Sell your merch and your creators' merch right next to the videos.</p></article>
+    <article><div class="k">BRAND</div><h3>Your name on it</h3><p>Your logo, your colors and your domain. No one else's brand on the page.</p></article>
+    <article><div class="k">YOURS</div><h3>Your audience</h3><p>Every member signs up with you, so you own the list and the community.</p></article>
+  </div>
+</div></section>
 
 <section class="sec" id="pricing"><div class="w">
-  <div class="sh"><div class="eyebrow">Packages</div><h2>Three ways to start</h2><p>Get the website on its own, add CallTwin so every call gets answered, or get a voice AI agent built to order. You see the price when you sign up.</p></div>
+  <div class="sh"><div class="eyebrow">Packages</div><h2>Pick what you need</h2><p>A website on its own, a website with CallTwin, a voice AI agent built to order, or your own video platform. You see the price when you sign up.</p></div>
   <div class="plans">
     <article class="card price">
       <h3>Website</h3>
@@ -431,6 +498,13 @@ textarea.field{min-height:84px;resize:vertical}
       <ul><li>Human-like agent on your phone line</li><li>Answers, books, follows up and supports</li><li>Your script, your voice, your rules</li><li>Record your voice right in sign-up</li><li>Cancel the monthly anytime</li></ul>
       <button class="btn btn-g" data-open="voice">Choose voice agent</button>
     </article>
+    <article class="card price">
+      <div><span class="tag">NEW</span></div>
+      <h3 style="margin-top:12px">Video Platform</h3>
+      <div class="per" style="margin-top:12px">Monthly / your own video network</div>
+      <ul><li>Uploads, channels and shorts</li><li>Live streaming with chat and replays</li><li>Memberships, pay-per-view and tips</li><li>Music section and merch store</li><li>Your brand on your domain</li></ul>
+      <button class="btn btn-g" data-open="video">Choose video platform</button>
+    </article>
   </div>
   <div class="ways"><span>Pay your way:</span><span class="w-chip">Card</span><span class="w-chip">Cash App <b>$hsw365</b></span><span class="w-chip">Zelle</span></div>
   <p style="color:var(--m2);font-size:14px;margin-top:16px">Bigger project with a store, member area or custom features? <a data-mail="custom" style="color:var(--c);cursor:pointer">Request a custom quote</a>.</p>
@@ -444,6 +518,7 @@ textarea.field{min-height:84px;resize:vertical}
   <details><summary>Do I own my website?</summary><p>Yes. The site and its content are yours. We connect it to a domain you own.</p></details>
   <details><summary>Can I add CallTwin later?</summary><p>Yes. Adding it at sign-up means it is trained on your business during the build and connected to your site at launch.</p></details>
   <details><summary>Can you build a voice AI agent on its own?</summary><p>Yes. Voice AI agents are built to order, with or without a website. Choose the voice agent package, tell us what calls it should handle and record your voice in the sign-up. We email your build timeline after you sign up.</p></details>
+  <details><summary>What do I get with the video platform?</summary><p>Your own video and streaming site on your domain: uploads, channels, shorts, live streams with chat, memberships, pay-per-view, tips, a music section and a merch store, under your brand. The monthly covers the platform and its upkeep. Cancel anytime.</p></details>
 </div></section>
 
 <footer><div class="w"><div><span class="logo" style="font-size:20px">QUEEN<span>EE</span></span> by HSW365 Media LLC</div><div>Contact: <a data-mail="contact" style="cursor:pointer"></a></div></div></footer>
@@ -495,6 +570,13 @@ textarea.field{min-height:84px;resize:vertical}
           <h3>Voice AI Agent</h3>
           <span class="amt" data-p="voice">$997<small>/mo</small></span><span class="per" data-p="voiceper">5,000 minutes a month included</span>
           <ul><li>Human-like agent built to order</li><li>Inbound, booking, follow-up or support</li><li>Your own voice, recorded at sign-up</li><li>Cancel the monthly anytime</li></ul>
+          <span class="btn btn-g go">Select</span>
+        </button>
+        <button class="pk" data-pick="video">
+          <span class="tag">NEW</span>
+          <h3>Video Platform</h3>
+          <span class="amt" data-p="video">$146<small>/mo</small></span><span class="per">Your own video network</span>
+          <ul><li>Uploads, channels, shorts and live</li><li>Memberships, pay-per-view and tips</li><li>Music section and merch store</li><li>Cancel the monthly anytime</li></ul>
           <span class="btn btn-g go">Select</span>
         </button>
       </div>
@@ -595,7 +677,7 @@ textarea.field{min-height:84px;resize:vertical}
   const fmt=n=>'$'+Number(n).toLocaleString('en-US');
   const today=P.website+P.addon;
   let plan='website', order=null;
-  const VP=P.voice||997, VMIN=P.voiceMinutes||5000;
+  const VP=P.voice||997, VMIN=P.voiceMinutes||5000, VDP=P.video||146;
 
   // hero waveform
   const wave=$('#wave');for(let i=0;i<26;i++){const b=document.createElement('i');b.style.animationDelay=(-(i*37%150)/100)+'s';wave.appendChild(b)}
@@ -603,6 +685,7 @@ textarea.field{min-height:84px;resize:vertical}
   // prices on the page come from config.js
   $$('[data-p="web"]').forEach(e=>e.textContent=fmt(P.website));
   $$('[data-p="voice"]').forEach(e=>e.innerHTML=fmt(VP)+'<small>/mo</small>');
+  $$('[data-p="video"]').forEach(e=>e.innerHTML=fmt(VDP)+'<small>/mo</small>');
   $$('[data-p="voiceper"]').forEach(e=>e.textContent=VMIN.toLocaleString('en-US')+' minutes a month included');
   $$('[data-p="today"]').forEach(e=>e.innerHTML=fmt(today)+'<small> today</small>');
   $$('[data-p="later"]').forEach(e=>e.textContent='then '+fmt(P.addon)+'/month for '+P.addonMonths+' months');
@@ -618,7 +701,7 @@ textarea.field{min-height:84px;resize:vertical}
     lastFocus=document.activeElement;
     modal.classList.add('on');document.body.classList.add('lock');
     if(order)show(order.done?'#stepDone':'#stepPay');
-    else if(p==='website'||p==='bundle'||p==='voice')pick(p);
+    else if(['website','bundle','voice','video'].includes(p))pick(p);
     else show('#stepOffers');
     setTimeout(()=>{const f=modal.querySelector('.mbox > div:not(.hide) button, .mbox > form:not(.hide) input');(f||$('#mClose')).focus()},50);
   }
@@ -626,14 +709,14 @@ textarea.field{min-height:84px;resize:vertical}
   function pick(p){
     plan=p;show('#stepForm');
     if(p==='bundle'&&form.clientType.value==='artist'){form.clientType.value='business';labels()}
-    const V=p==='voice';
-    $('#siteWrap').classList.toggle('hide',V);if(V){form.siteType.value='new';$('#urlWrap').classList.add('hide')}
-    $('#whoStep').textContent=V?'Who is the agent for?':'Who is the site for?';
-    $('#lblGoal').textContent=V?'What calls should the agent handle? (answer, book, follow up, support)':'What should the website do for you?';
-    $('#chosenName').textContent=V?'Voice AI Agent: '+fmt(VP)+'/month, '+VMIN.toLocaleString('en-US')+' minutes included':p==='bundle'?'Website + CallTwin: '+fmt(today)+' today, then '+fmt(P.addon)+'/month x '+P.addonMonths:'Website: '+fmt(P.website)+' one-time';
-    $('#due').textContent=fmt(V?VP:p==='bundle'?today:P.website);
-    $('#later').textContent=V?'Then '+fmt(VP)+' a month. Cancel anytime.':p==='bundle'?'Then '+fmt(P.addon)+'/month for '+P.addonMonths+' months.':'No recurring charges.';
-    $('#termsText').textContent=V?'I understand the Voice AI Agent is '+fmt(VP)+' a month with '+VMIN.toLocaleString('en-US')+' minutes included, the first month is due today, and I can cancel the monthly anytime.':'I understand the website is a one-time '+fmt(P.website)+' build'+(p==='bundle'?' and CallTwin is '+fmt(P.addon)+' today plus '+fmt(P.addon)+' a month for '+P.addonMonths+' months.':'.');
+    const V=p==='voice', VD=p==='video';
+    $('#siteWrap').classList.toggle('hide',V||VD);if(V||VD){form.siteType.value='new';$('#urlWrap').classList.add('hide')}
+    $('#whoStep').textContent=V?'Who is the agent for?':VD?'Who is the platform for?':'Who is the site for?';
+    $('#lblGoal').textContent=V?'What calls should the agent handle? (answer, book, follow up, support)':VD?'What will people watch on your platform? (shows, music, live, podcasts...)':'What should the website do for you?';
+    $('#chosenName').textContent=VD?'Video Platform: '+fmt(VDP)+'/month':V?'Voice AI Agent: '+fmt(VP)+'/month, '+VMIN.toLocaleString('en-US')+' minutes included':p==='bundle'?'Website + CallTwin: '+fmt(today)+' today, then '+fmt(P.addon)+'/month x '+P.addonMonths:'Website: '+fmt(P.website)+' one-time';
+    $('#due').textContent=fmt(VD?VDP:V?VP:p==='bundle'?today:P.website);
+    $('#later').textContent=VD?'Then '+fmt(VDP)+' a month. Cancel anytime.':V?'Then '+fmt(VP)+' a month. Cancel anytime.':p==='bundle'?'Then '+fmt(P.addon)+'/month for '+P.addonMonths+' months.':'No recurring charges.';
+    $('#termsText').textContent=VD?'I understand the Video Platform is '+fmt(VDP)+' a month, the first month is due today, and I can cancel the monthly anytime.':V?'I understand the Voice AI Agent is '+fmt(VP)+' a month with '+VMIN.toLocaleString('en-US')+' minutes included, the first month is due today, and I can cancel the monthly anytime.':'I understand the website is a one-time '+fmt(P.website)+' build'+(p==='bundle'?' and CallTwin is '+fmt(P.addon)+' today plus '+fmt(P.addon)+' a month for '+P.addonMonths+' months.':'.');
     $('#err').style.display='none';
   }
   const L={
@@ -651,7 +734,7 @@ textarea.field{min-height:84px;resize:vertical}
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('on'))close()});
   form.addEventListener('change',()=>{$('#urlWrap').classList.toggle('hide',form.siteType.value!=='rebuild');labels();$('#err').style.display='none'});
   if(location.hash==='#signup')open();
-  {const b=new URLSearchParams(location.search).get('buy');if(b==='voice'||b==='website'||b==='bundle')open(b)}
+  {const b=new URLSearchParams(location.search).get('buy');if(['voice','website','bundle','video'].includes(b))open(b)}
 
   async function api(body){
     const ac=new AbortController();const t=setTimeout(()=>ac.abort(),30000);
@@ -691,8 +774,10 @@ textarea.field{min-height:84px;resize:vertical}
     $('#payDue').textContent=amt;$('#cashAmt').textContent=amt;$('#zelleAmt').textContent=amt;
     $('#cashtag').textContent=p.cashtag;$('#cashOpen').href='https://cash.app/'+encodeURIComponent(p.cashtag).replace('%24','$')+'/'+o.amount;
     $('#zelle').textContent=p.zelle;$('#payee').textContent=p.payee;
-    $('#mCash').classList.toggle('hide',!p.cashtag);$('#mZelle').classList.toggle('hide',!p.zelle);const cardLink=o.plan==='voice'?p.stripeVoice:p.stripe;o.cardLink=cardLink;$('#mCard').classList.toggle('hide',!cardLink);
-    $('#cardText').textContent=o.plan==='voice'
+    $('#mCash').classList.toggle('hide',!p.cashtag);$('#mZelle').classList.toggle('hide',!p.zelle);const cardLink=o.plan==='voice'?p.stripeVoice:o.plan==='video'?p.stripeVideo:p.stripe;o.cardLink=cardLink;$('#mCard').classList.toggle('hide',!cardLink);
+    $('#cardText').textContent=o.plan==='video'
+      ?'Secure Stripe checkout for your first '+fmt(VDP)+' month. Your order number is attached automatically.'
+      :o.plan==='voice'
       ?'Secure Stripe checkout for your first '+fmt(VP)+' month. Your order number is attached automatically.'
       :o.plan==='bundle'
       ?'Secure Stripe checkout for the '+fmt(P.website)+' website. We email an invoice for your first '+fmt(P.addon)+' CallTwin payment.'

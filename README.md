@@ -9,6 +9,7 @@ Live at **https://hsw365.github.io/queenee/** (GitHub Pages, `main` branch).
 | Website (new or rebuild) | $500 one-time |
 | Website + CallTwin | $599 today, then $99/month for 5 months |
 | Voice AI Agent | $997/month, 5,000 minutes included, first month due at sign-up |
+| Video Platform | $146/month (own video + streaming network), first month due at sign-up |
 
 Prices are not shown on the landing page. Visitors see them in the sign-up popup.
 
@@ -39,6 +40,11 @@ admin.html  order list      ───────▶  (owner key required)      
 - After sign-up the customer records their voice in the browser (or uploads a studio file). Files go to the private `queenee-voice` storage bucket, under the order number, max 8 per order.
 - `admin.html` plays and downloads each order's recordings.
 - Card for voice orders shows only when `stripe_voice_link` is set in `queenee_settings` (a $997 Stripe link). Until then voice orders pay by Cash App or Zelle.
+
+## Video Platform
+
+- Buy link: `https://hsw365.github.io/queenee/?buy=video`.
+- Card shows only when `stripe_video_link` is set in `queenee_settings` (a $146 Stripe link). Until then: Cash App or Zelle.
 
 ## Changing things
 
