@@ -126,6 +126,33 @@ h1,h2,h3{font-family:'Barlow Condensed',Inter,sans-serif;text-transform:uppercas
 .bub.c{background:var(--s2);border:1px solid var(--line2);margin-left:auto}
 .bub small{display:block;font-family:'Space Mono';font-size:10.5px;color:var(--m2);margin-bottom:3px;letter-spacing:.08em}
 
+/* voice ai agents */
+.va-fig{display:flex;justify-content:space-between;align-items:center;font-family:'Space Mono',monospace;font-size:11.5px;letter-spacing:.16em;color:var(--m2);text-transform:uppercase;border-bottom:1px solid var(--line2);padding-bottom:14px;margin-bottom:40px}
+.va-fig b{color:var(--c);font-weight:700}
+.va-top{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.va-top h2{font-size:clamp(46px,6vw,84px);margin:14px 0 18px}
+.va-top p.lead{max-width:540px}
+.va-panel{position:relative;padding:26px;background:radial-gradient(120% 90% at 100% 0,#22d3ee14,transparent 60%),linear-gradient(160deg,#141026,var(--s1));border-color:#22d3ee44;overflow:hidden}
+.va-panel .row{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--m);font-family:'Space Mono',monospace;letter-spacing:.08em}
+.va-wave{display:flex;align-items:center;gap:4px;height:120px;margin:26px 0 20px}
+.va-wave i{flex:1;height:100%;border-radius:3px;background:linear-gradient(180deg,var(--c),var(--v));opacity:.85;animation:vaw 1.25s ease-in-out infinite}
+@keyframes vaw{0%,100%{transform:scaleY(.18)}50%{transform:scaleY(1)}}
+@media (prefers-reduced-motion:reduce){.va-wave i{animation:none;transform:scaleY(.5)}}
+.va-line{display:flex;gap:12px;align-items:baseline;padding:11px 0;border-top:1px solid var(--line2);font-size:14px;color:#d3d5e2}
+.va-line small{flex:0 0 74px;font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--m2)}
+.va-line.ag small{color:var(--c)}
+.va-stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line2);border-radius:14px;margin-top:56px;background:var(--s1)}
+.va-stats div{padding:22px 24px;border-left:1px solid var(--line2)}
+.va-stats div:first-child{border-left:0}
+.va-stats b{display:block;font-family:'Barlow Condensed';font-weight:800;font-size:40px;line-height:1;text-transform:uppercase}
+.va-stats span{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--m)}
+.va-uses{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.va-uses article{padding:22px}
+.va-uses .k{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--v)}
+.va-uses h3{font-size:26px;margin:8px 0 6px}
+.va-uses p{margin:0;color:var(--m);font-size:14.5px}
+@media (max-width:900px){.va-top{grid-template-columns:1fr}.va-stats{grid-template-columns:1fr 1fr}.va-stats div:nth-child(3){border-left:0}.va-stats div:nth-child(n+3){border-top:1px solid var(--line2)}.va-uses{grid-template-columns:1fr}.va-stats div{padding:18px 16px;min-width:0}.va-stats b{font-size:28px}.va-stats span{font-size:10px}.va-top>div{min-width:0}}
+
 /* pricing */
 .plans{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .price{padding:30px;display:flex;flex-direction:column}
@@ -242,7 +269,7 @@ textarea.field{min-height:84px;resize:vertical}
 <body>
 <nav class="nav"><div class="w">
   <a class="logo" href="#top">QUEEN<span>EE</span></a>
-  <div class="navl"><a href="#who">Who it's for</a><a href="#calltwin">CallTwin</a><a href="#pricing">Packages</a><a href="#faq">FAQ</a></div>
+  <div class="navl"><a href="#who">Who it's for</a><a href="#calltwin">CallTwin</a><a href="#voice">Voice AI</a><a href="#pricing">Packages</a><a href="#faq">FAQ</a></div>
   <button class="btn btn-p" data-open style="padding:11px 18px;font-size:14px">Sign up</button>
 </div></nav>
 
@@ -317,6 +344,38 @@ textarea.field{min-height:84px;resize:vertical}
     <div class="bub c"><small>CALLER</small>Sure, it's Dana, 14 Park Ave.</div>
     <div class="bub a"><small>CALLTWIN</small>Got it, Dana. You are first on the 7 AM list. The owner has your details now.</div>
     <div class="row" style="margin-top:18px;border-top:1px solid var(--line2);padding-top:14px"><span>Example call</span><span class="mono" style="color:var(--ok)">LEAD SAVED</span></div>
+  </div>
+</div></section>
+
+<section class="sec" id="voice"><div class="w">
+  <div class="va-fig"><span><b>FIG. 01</b> / Voice AI</span><span>by HSW365</span></div>
+  <div class="va-top">
+    <div>
+      <div class="eyebrow">New service / Voice AI agents</div>
+      <h2>Build human-like <span class="grad">voice AI agents</span></h2>
+      <p class="lead">A voice agent that talks like a real person, built around <b>your business, your script and your voice</b>. It answers calls, books appointments, follows up with leads and handles support while you work.</p>
+      <div class="ctas"><a class="btn btn-p" data-mail="voice">Request a voice agent</a><a class="btn btn-g" href="#calltwin">See CallTwin</a></div>
+    </div>
+    <div class="card va-panel" aria-hidden="true">
+      <div class="row"><span class="live">AGENT ON CALL</span><span>VOICE / EN</span></div>
+      <div class="va-wave"><i style="animation-delay:-0.00s"></i><i style="animation-delay:-0.14s"></i><i style="animation-delay:-0.27s"></i><i style="animation-delay:-0.41s"></i><i style="animation-delay:-0.55s"></i><i style="animation-delay:-0.69s"></i><i style="animation-delay:-0.82s"></i><i style="animation-delay:-0.96s"></i><i style="animation-delay:-1.10s"></i><i style="animation-delay:-1.23s"></i><i style="animation-delay:-0.12s"></i><i style="animation-delay:-0.26s"></i><i style="animation-delay:-0.39s"></i><i style="animation-delay:-0.53s"></i><i style="animation-delay:-0.67s"></i><i style="animation-delay:-0.81s"></i><i style="animation-delay:-0.94s"></i><i style="animation-delay:-1.08s"></i><i style="animation-delay:-1.22s"></i><i style="animation-delay:-0.10s"></i><i style="animation-delay:-0.24s"></i><i style="animation-delay:-0.38s"></i><i style="animation-delay:-0.51s"></i><i style="animation-delay:-0.65s"></i><i style="animation-delay:-0.79s"></i><i style="animation-delay:-0.93s"></i><i style="animation-delay:-1.06s"></i><i style="animation-delay:-1.20s"></i><i style="animation-delay:-0.09s"></i><i style="animation-delay:-0.22s"></i><i style="animation-delay:-0.36s"></i><i style="animation-delay:-0.50s"></i><i style="animation-delay:-0.63s"></i><i style="animation-delay:-0.77s"></i><i style="animation-delay:-0.91s"></i><i style="animation-delay:-1.04s"></i><i style="animation-delay:-1.18s"></i><i style="animation-delay:-0.07s"></i><i style="animation-delay:-0.21s"></i><i style="animation-delay:-0.34s"></i><i style="animation-delay:-0.48s"></i><i style="animation-delay:-0.62s"></i><i style="animation-delay:-0.75s"></i><i style="animation-delay:-0.89s"></i></div>
+      <div class="va-line"><small>CALLER</small>Can I move my appointment to Friday?</div>
+      <div class="va-line ag"><small>AGENT</small>You're set for Friday at 10 AM. I just texted you the confirmation.</div>
+    </div>
+  </div>
+  <div class="va-stats">
+    <div><b>24/7</b><span>Always on</span></div>
+    <div><b>Seconds</b><span>To pick up</span></div>
+    <div><b>Multilingual</b><span>Speaks your callers' language</span></div>
+    <div><b>Every call</b><span>Logged and sent to you</span></div>
+  </div>
+  <div class="va-uses">
+    <article class="card"><div class="k">INBOUND</div><h3>Receptionist</h3><p>Answers every call, knows your services and hours, takes the caller's details.</p></article>
+    <article class="card"><div class="k">SCHEDULING</div><h3>Appointment setter</h3><p>Books, moves and confirms appointments, then sends a text confirmation.</p></article>
+    <article class="card"><div class="k">OUTBOUND</div><h3>Lead follow-up</h3><p>Calls new leads back fast while they are still ready to buy.</p></article>
+    <article class="card"><div class="k">SUPPORT</div><h3>Customer support</h3><p>Handles common questions and passes the hard ones to you with notes.</p></article>
+    <article class="card"><div class="k">VOICE</div><h3>Your own voice</h3><p>Pick a natural voice or use a custom one built for your brand.</p></article>
+    <article class="card"><div class="k">CUSTOM</div><h3>Built for your flow</h3><p>Your script, your questions, your handoff rules. Nothing generic.</p></article>
   </div>
 </div></section>
 
@@ -481,7 +540,7 @@ textarea.field{min-height:84px;resize:vertical}
   $$('[data-p="later"]').forEach(e=>e.textContent='then '+fmt(P.addon)+'/month for '+P.addonMonths+' months');
   $$('[data-p="faq"]').forEach(e=>e.textContent=fmt(P.addon)+' is due today with your website. Then '+fmt(P.addon)+' once a month for the next '+P.addonMonths+' months. After the final payment it is paid off.');
   $$('[data-sched]').forEach(el=>{let h='<div class="now"><b>'+fmt(P.addon)+'</b>Today</div>';for(let i=1;i<=P.addonMonths;i++)h+='<div><b>'+fmt(P.addon)+'</b>Month '+(i+1)+'</div>';el.innerHTML=h});
-  $$('[data-mail]').forEach(a=>{a.href='mailto:'+C.contactEmail+(a.dataset.mail==='custom'?'?subject=QUEENEE%20custom%20website%20quote':'');if(!a.textContent)a.textContent=C.contactEmail});
+  $$('[data-mail]').forEach(a=>{a.href='mailto:'+C.contactEmail+(a.dataset.mail==='custom'?'?subject=QUEENEE%20custom%20website%20quote':a.dataset.mail==='voice'?'?subject='+encodeURIComponent('Voice AI agent request')+'&body='+encodeURIComponent('Business name:\nWebsite:\nWhat calls should the agent handle (answer, book, follow up, support)?\nLanguages:\nBest number to reach me:\n'):'');if(!a.textContent)a.textContent=C.contactEmail});
   $$('[data-calltwin]').forEach(a=>a.href=C.calltwinUrl);
 
   const modal=$('#modal'), form=$('#stepForm'), panes=['#stepOffers','#stepForm','#stepPay','#stepDone'];
