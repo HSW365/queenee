@@ -8,12 +8,15 @@ const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 // sha256 of the owner key used on admin.html. The key itself is never stored.
 const ADMIN_HASH = "9d0f85caeedce9a45840b764d79d0261727fe93766fc9290a842c04372bf623a";
 
-const PRICES = { website: 500, addon: 99, addonMonths: 5 };
+// voice: Voice AI Agent, billed monthly. First month is due at sign-up.
+const PRICES = { website: 500, addon: 99, addonMonths: 5, voice: 997, voiceMinutes: 5000 };
+const VOICE_BUCKET = "queenee-voice";
+const VOICE_MAX_FILES = 8;
 // Payment handles live in the queenee_settings table so they can change without a redeploy.
 async function paymentSettings() {
-  const r = await db("queenee_settings?select=stripe_link,cashapp_tag,zelle_handle,payee&id=eq.1");
+  const r = await db("queenee_settings?select=stripe_link,stripe_voice_link,cashapp_tag,zelle_handle,payee&id=eq.1");
   const s = r[0] || {};
-  return { stripe: s.stripe_link || "", cashtag: s.cashapp_tag || "", zelle: s.zelle_handle || "", payee: s.payee || "HSW365 Media LLC" };
+  return { stripe: s.stripe_link || "", stripeVoice: s.stripe_voice_link || "", cashtag: s.cashapp_tag || "", zelle: s.zelle_handle || "", payee: s.payee || "HSW365 Media LLC" };
 }
 const OWNER_EMAILS = ["hsw365media@gmail.com", "hoodstarent365@gmail.com"];
 const STATUSES = ["new", "checkout_started", "payment_reported", "paid", "in_progress", "delivered", "canceled"];
@@ -132,6 +135,53 @@ async function analyze(raw: string) {
   };
 }
 
+/* ---------- storage (voice recordings) ---------- */
+
+async function storage(path: string, body: unknown) {
+  const r = await fetch(`${SUPABASE_URL}/storage/v1/${path}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}` },
+    body: JSON.stringify(body),
+  });
+  const text = await r.text();
+  if (!r.ok) throw new Error(`storage ${r.status}: ${text.slice(0, 200)}`);
+  return text ? JSON.parse(text) : null;
+}
+
+const listVoice = async (id: string) =>
+  ((await storage(`object/list/${VOICE_BUCKET}`, { prefix: `${id}/`, limit: 100, sortBy: { column: "created_at", order: "asc" } })) || [])
+    .filter((o: { id: string | null }) => o.id);
+
+const AUDIO_EXT: Record<string, string> = {
+  "audio/webm": "webm", "video/webm": "webm", "audio/ogg": "ogg", "audio/mp4": "m4a", "audio/x-m4a": "m4a", "audio/m4a": "m4a",
+  "audio/aac": "aac", "audio/mpeg": "mp3", "audio/wav": "wav", "audio/x-wav": "wav", "audio/wave": "wav", "audio/flac": "flac", "audio/x-flac": "flac",
+};
+
+async function orderFor(body: Record<string, unknown>) {
+  const id = clean(body.id, 20), token = clean(body.token, 64);
+  const rows = await db(`queenee_orders?select=id,token,plan&id=eq.${encodeURIComponent(id)}`);
+  if (!rows.length || !safeEqual(rows[0].token, token)) throw new UserError("We could not find that order.");
+  return rows[0];
+}
+
+async function voiceUploadUrl(body: Record<string, unknown>) {
+  const o = await orderFor(body);
+  if (o.plan !== "voice") throw new UserError("Voice recordings are part of the Voice AI Agent package.");
+  const type = clean(body.type, 60).split(";")[0].toLowerCase();
+  const ext = AUDIO_EXT[type];
+  if (!ext) throw new UserError("That audio format is not supported. Use a recording from this page, or an MP3, WAV or M4A file.");
+  if ((await listVoice(o.id)).length >= VOICE_MAX_FILES) throw new UserError(`This order already has ${VOICE_MAX_FILES} recordings. Email hsw365media@gmail.com to add more.`);
+  const kind = body.kind === "upload" ? "upload" : "take";
+  const path = `${o.id}/${new Date().toISOString().replace(/[:.]/g, "-")}-${kind}.${ext}`;
+  const r = await storage(`object/upload/sign/${VOICE_BUCKET}/${path}`, {});
+  return { uploadUrl: `${SUPABASE_URL}/storage/v1${r.url}`, path, contentType: type };
+}
+
+async function voiceList(body: Record<string, unknown>) {
+  const o = await orderFor(body);
+  return { files: (await listVoice(o.id)).map((f: { name: string; metadata?: { size?: number } }) => ({ name: f.name, size: f.metadata?.size || 0 })) };
+}
+
 /* ---------- actions ---------- */
 
 function newId() {
@@ -147,8 +197,8 @@ async function createOrder(body: Record<string, unknown>, req: Request) {
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) throw new UserError("Enter a valid email address.");
 
   const clientType = ["artist", "business", "other"].includes(String(body.clientType)) ? String(body.clientType) : "business";
-  const siteType = body.siteType === "rebuild" ? "rebuild" : "new";
-  const plan = body.plan === "bundle" ? "bundle" : "website";
+  const siteType = body.siteType === "rebuild" && body.plan !== "voice" ? "rebuild" : "new";
+  const plan = body.plan === "bundle" ? "bundle" : body.plan === "voice" ? "voice" : "website";
   const currentUrl = siteType === "rebuild" ? normalizeUrl(String(body.currentUrl || "")) : "";
   if (siteType === "rebuild" && !currentUrl) throw new UserError('Enter your current website address, or choose "I need a new website".');
 
@@ -165,7 +215,7 @@ async function createOrder(body: Record<string, unknown>, req: Request) {
   }
 
   const comp = OWNER_EMAILS.includes(email);
-  const amountDue = comp ? 0 : PRICES.website + (plan === "bundle" ? PRICES.addon : 0);
+  const amountDue = comp ? 0 : plan === "voice" ? PRICES.voice : PRICES.website + (plan === "bundle" ? PRICES.addon : 0);
   const token = [...crypto.getRandomValues(new Uint8Array(16))].map((b) => b.toString(16).padStart(2, "0")).join("");
   const row = {
     id: newId(), token, status: comp ? "paid" : "new", client_type: clientType, site_type: siteType, plan,
@@ -199,7 +249,18 @@ async function requireAdmin(body: Record<string, unknown>) {
 async function adminList(body: Record<string, unknown>) {
   await requireAdmin(body);
   const rows = await db("queenee_orders?select=*&order=created_at.desc&limit=500");
-  return { orders: rows.map(({ token: _t, ip_hash: _i, ...r }: Record<string, unknown>) => r) };
+  const orders = await Promise.all(rows.map(async ({ token: _t, ip_hash: _i, ...r }: Record<string, unknown>) => {
+    if (r.plan !== "voice") return r;
+    try {
+      const files = await listVoice(String(r.id));
+      const voice = await Promise.all(files.map(async (f: { name: string; metadata?: { size?: number } }) => {
+        const s = await storage(`object/sign/${VOICE_BUCKET}/${r.id}/${f.name}`, { expiresIn: 21600 });
+        return { name: f.name, size: f.metadata?.size || 0, url: `${SUPABASE_URL}/storage/v1${s.signedURL}` };
+      }));
+      return { ...r, voice };
+    } catch (e) { console.error("voice list", e); return { ...r, voice: [] }; }
+  }));
+  return { orders };
 }
 
 async function adminUpdate(body: Record<string, unknown>) {
@@ -222,6 +283,8 @@ Deno.serve(async (req) => {
     switch (body.action) {
       case "order": return json(await createOrder(body, req), 201);
       case "pay": return json(await recordPayment(body));
+      case "voice_upload_url": return json(await voiceUploadUrl(body));
+      case "voice_list": return json(await voiceList(body));
       case "admin_list": return json(await adminList(body));
       case "admin_update": return json(await adminUpdate(body));
       default: return json({ error: "Unknown action" }, 400);

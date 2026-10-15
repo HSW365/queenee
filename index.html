@@ -154,7 +154,7 @@ h1,h2,h3{font-family:'Barlow Condensed',Inter,sans-serif;text-transform:uppercas
 @media (max-width:900px){.va-top{grid-template-columns:1fr}.va-stats{grid-template-columns:1fr 1fr}.va-stats div:nth-child(3){border-left:0}.va-stats div:nth-child(n+3){border-top:1px solid var(--line2)}.va-uses{grid-template-columns:1fr}.va-stats div{padding:18px 16px;min-width:0}.va-stats b{font-size:28px}.va-stats span{font-size:10px}.va-top>div{min-width:0}}
 
 /* pricing */
-.plans{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .price{padding:30px;display:flex;flex-direction:column}
 .price.hl{border-color:#22d3ee66;background:linear-gradient(180deg,#0f1a22,var(--s1))}
 .price h3{font-size:30px}
@@ -192,7 +192,7 @@ footer a:hover{color:var(--t)}
 .x:hover{border-color:var(--c)}
 .mbox h2{font-size:clamp(34px,5vw,48px);margin:10px 0 6px;padding-right:44px}
 .mbox .sub{color:var(--m);margin:0 0 22px}
-.pkgs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .pk{position:relative;display:flex;flex-direction:column;text-align:left;cursor:pointer;background:#07070b;border:1px solid var(--line2);border-radius:16px;padding:22px;color:var(--t);transition:border-color .15s,transform .15s}
 .pk:hover{border-color:var(--c);transform:translateY(-2px)}
 .pk.hl{border-color:#22d3ee66;background:linear-gradient(180deg,#0f1a22,#07070b)}
@@ -242,11 +242,40 @@ textarea.field{min-height:84px;resize:vertical}
 .note{margin-top:14px;font-size:13.5px;color:var(--m)}
 .note b{color:var(--t)}
 .done{text-align:left}
+/* voice recorder */
+.vr{margin-top:26px;border:1px solid #22d3ee44;border-radius:16px;padding:22px;background:radial-gradient(120% 100% at 100% 0,#22d3ee12,transparent 60%),#07070b}
+.vr h3{font-size:28px;margin:8px 0 6px}
+.vr>p{color:var(--m);font-size:14.5px;margin:0 0 16px;max-width:62ch}
+.vr-script{border-left:2px solid var(--v);padding:10px 14px;background:var(--s2);border-radius:0 10px 10px 0;font-size:15px;color:#e4e5ee;margin-bottom:12px}
+.vr-script small{display:block;font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:var(--m2);margin-bottom:4px}
+.vr-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.vr-tabs button{font:600 12.5px Inter,sans-serif;padding:7px 11px;border-radius:8px;border:1px solid var(--line2);background:var(--s1);color:var(--m);cursor:pointer}
+.vr-tabs button.on{border-color:var(--c);color:var(--t)}
+.vr-deck{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:14px}
+.vr-rec{width:64px;height:64px;border-radius:50%;border:2px solid var(--r);background:#ef44441a;cursor:pointer;display:grid;place-items:center;flex:0 0 auto}
+.vr-rec i{width:24px;height:24px;border-radius:50%;background:var(--r);transition:border-radius .15s,width .15s,height .15s}
+.vr-rec.on i{width:20px;height:20px;border-radius:4px}
+.vr-rec.on{animation:vrp 1.4s ease-in-out infinite}
+@keyframes vrp{0%,100%{box-shadow:0 0 0 0 #ef444455}50%{box-shadow:0 0 0 10px #ef444400}}
+.vr-time{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;min-width:70px}
+.vr-meter{flex:1;min-width:140px;display:flex;align-items:center;gap:3px;height:40px}
+.vr-meter i{flex:1;height:100%;border-radius:2px;background:linear-gradient(180deg,var(--c),var(--v));transform:scaleY(.06);transition:transform .08s}
+.vr-take{display:none;margin-top:16px;gap:10px;align-items:center;flex-wrap:wrap}
+.vr-take audio{flex:1;min-width:220px;height:40px}
+.vr-file{margin-top:14px;font-size:13.5px;color:var(--m)}
+.vr-file label{color:var(--c);cursor:pointer;font-weight:600}
+.vr-file input{position:absolute;width:1px;height:1px;opacity:0}
+.vr-msg{margin-top:12px;font-size:14px;min-height:20px}
+.vr-msg.vok{color:var(--ok)}.vr-msg.vbad{color:#fecaca}
+.vr-list{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:6px}
+.vr-list li{font-family:'Space Mono',monospace;font-size:12px;color:var(--m);display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line2);padding-top:6px}
+.vr-list li b{color:var(--ok);font-weight:700}
 .done .ok{display:inline-block;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--ok);border:1px solid #34d39955;background:#34d39914;padding:6px 10px;border-radius:6px}
 .done p{color:var(--m);max-width:60ch}
 .done p b{color:var(--t)}
 
 @media(max-width:960px){
+  .pkgs,.plans{grid-template-columns:1fr}
   .hero .w,.ct{grid-template-columns:1fr}
   .hero{padding-top:52px}.hero-copy{padding-bottom:44px}
   .who{grid-template-columns:1fr}
@@ -354,7 +383,7 @@ textarea.field{min-height:84px;resize:vertical}
       <div class="eyebrow">New service / Voice AI agents</div>
       <h2>Build human-like <span class="grad">voice AI agents</span></h2>
       <p class="lead">A voice agent that talks like a real person, built around <b>your business, your script and your voice</b>. It answers calls, books appointments, follows up with leads and handles support while you work.</p>
-      <div class="ctas"><a class="btn btn-p" data-mail="voice">Request a voice agent</a><a class="btn btn-g" href="#calltwin">See CallTwin</a></div>
+      <div class="ctas"><button class="btn btn-p" data-open="voice">Get a voice agent</button><a class="btn btn-g" href="#calltwin">See CallTwin</a></div>
     </div>
     <div class="card va-panel" aria-hidden="true">
       <div class="row"><span class="live">AGENT ON CALL</span><span>VOICE / EN</span></div>
@@ -380,7 +409,7 @@ textarea.field{min-height:84px;resize:vertical}
 </div></section>
 
 <section class="sec" id="pricing"><div class="w">
-  <div class="sh"><div class="eyebrow">Packages</div><h2>Two ways to start</h2><p>Get the website on its own, or add CallTwin so every call gets answered. You see the price when you sign up.</p></div>
+  <div class="sh"><div class="eyebrow">Packages</div><h2>Three ways to start</h2><p>Get the website on its own, add CallTwin so every call gets answered, or get a voice AI agent built to order. You see the price when you sign up.</p></div>
   <div class="plans">
     <article class="card price">
       <h3>Website</h3>
@@ -395,6 +424,13 @@ textarea.field{min-height:84px;resize:vertical}
       <ul><li>Everything in the website</li><li>CallTwin 24/7 AI receptionist</li><li>Trained on your business during the build</li><li>Paid in monthly installments</li></ul>
       <button class="btn btn-g" data-open="bundle">Choose website + CallTwin</button>
     </article>
+    <article class="card price">
+      <div><span class="tag">NEW</span></div>
+      <h3 style="margin-top:12px">Voice AI Agent</h3>
+      <div class="per" style="margin-top:12px">Monthly / built to order</div>
+      <ul><li>Human-like agent on your phone line</li><li>Answers, books, follows up and supports</li><li>Your script, your voice, your rules</li><li>Record your voice right in sign-up</li><li>Cancel the monthly anytime</li></ul>
+      <button class="btn btn-g" data-open="voice">Choose voice agent</button>
+    </article>
   </div>
   <div class="ways"><span>Pay your way:</span><span class="w-chip">Card</span><span class="w-chip">Cash App <b>$hsw365</b></span><span class="w-chip">Zelle</span></div>
   <p style="color:var(--m2);font-size:14px;margin-top:16px">Bigger project with a store, member area or custom features? <a data-mail="custom" style="color:var(--c);cursor:pointer">Request a custom quote</a>.</p>
@@ -407,11 +443,31 @@ textarea.field{min-height:84px;resize:vertical}
   <details><summary>How long does it take?</summary><p>We confirm your build timeline by email after you sign up, based on the size of your site.</p></details>
   <details><summary>Do I own my website?</summary><p>Yes. The site and its content are yours. We connect it to a domain you own.</p></details>
   <details><summary>Can I add CallTwin later?</summary><p>Yes. Adding it at sign-up means it is trained on your business during the build and connected to your site at launch.</p></details>
+  <details><summary>Can you build a voice AI agent on its own?</summary><p>Yes. Voice AI agents are built to order, with or without a website. Choose the voice agent package, tell us what calls it should handle and record your voice in the sign-up. We email your build timeline after you sign up.</p></details>
 </div></section>
 
 <footer><div class="w"><div><span class="logo" style="font-size:20px">QUEEN<span>EE</span></span> by HSW365 Media LLC</div><div>Contact: <a data-mail="contact" style="cursor:pointer"></a></div></div></footer>
 
 <!-- Sign-up popup -->
+<template id="vrTpl">
+  <div class="vr" id="vr">
+    <div class="eyebrow">Your voice</div>
+    <h3>Record your voice</h3>
+    <p>Read the script out loud in a quiet room, or sing a verse. One to three minutes of clean audio gives the best voice. Record as many takes as you want, then save the ones you like.</p>
+    <div class="vr-tabs"><button type="button" class="on" data-vs="0">Speaking</button><button type="button" data-vs="1">Promo read</button><button type="button" data-vs="2">Singing</button></div>
+    <div class="vr-script" id="vrScript"></div>
+    <div class="vr-deck">
+      <button type="button" class="vr-rec" id="vrRec" aria-label="Start recording"><i></i></button>
+      <div class="vr-time" id="vrTime">0:00</div>
+      <div class="vr-meter" id="vrMeter" aria-hidden="true"></div>
+    </div>
+    <div class="vr-take" id="vrTake"><audio id="vrAudio" controls></audio><button type="button" class="btn btn-p" id="vrSave">Save this take</button><button type="button" class="btn btn-g" id="vrRedo">Redo</button></div>
+    <div class="vr-file">Have a studio recording? <label for="vrFile">Upload an MP3, WAV or M4A</label> (up to 50 MB).<input type="file" id="vrFile" accept="audio/*"></div>
+    <div class="vr-msg" id="vrMsg" role="status" aria-live="polite"></div>
+    <ul class="vr-list" id="vrList"></ul>
+  </div>
+</template>
+
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
   <div class="mbox">
     <button class="x" id="mClose" aria-label="Close">X</button>
@@ -434,6 +490,13 @@ textarea.field{min-height:84px;resize:vertical}
           <ul><li>Everything in the website</li><li>24/7 AI receptionist for your calls</li><li>Six CallTwin payments, then paid off</li></ul>
           <span class="btn btn-g go">Select</span>
         </button>
+        <button class="pk" data-pick="voice">
+          <span class="tag">NEW</span>
+          <h3>Voice AI Agent</h3>
+          <span class="amt" data-p="voice">$997<small>/mo</small></span><span class="per" data-p="voiceper">5,000 minutes a month included</span>
+          <ul><li>Human-like agent built to order</li><li>Inbound, booking, follow-up or support</li><li>Your own voice, recorded at sign-up</li><li>Cancel the monthly anytime</li></ul>
+          <span class="btn btn-g go">Select</span>
+        </button>
       </div>
     </div>
 
@@ -442,19 +505,19 @@ textarea.field{min-height:84px;resize:vertical}
       <h2>Tell us about you</h2>
       <div class="chosen"><div><span class="per">Package</span><br><b id="chosenName">Website</b></div><button type="button" id="changePkg">Change package</button></div>
 
-      <div class="step">Who is the site for?</div>
+      <div class="step" id="whoStep">Who is the site for?</div>
       <div class="seg three">
         <label class="opt"><input type="radio" name="clientType" value="artist" checked><span class="box"><b>An artist</b><span>Music, videos, merch</span></span></label>
         <label class="opt"><input type="radio" name="clientType" value="business"><span class="box"><b>A business</b><span>Services, products</span></span></label>
         <label class="opt"><input type="radio" name="clientType" value="other"><span class="box"><b>Something else</b><span>Creator, author, event</span></span></label>
       </div>
 
-      <div class="step">Your website</div>
+      <div id="siteWrap"><div class="step">Your website</div>
       <div class="seg">
         <label class="opt"><input type="radio" name="siteType" value="new" checked><span class="box"><b>I need a new website</b><span>Starting from scratch</span></span></label>
         <label class="opt"><input type="radio" name="siteType" value="rebuild"><span class="box"><b>Rebuild my site</b><span>I have one that needs replacing</span></span></label>
       </div>
-      <div id="urlWrap" class="hide" style="margin-top:12px"><label class="l" for="currentUrl">Current website address *</label><input class="field" id="currentUrl" name="currentUrl" placeholder="yoursite.com" autocomplete="url" inputmode="url"></div>
+      <div id="urlWrap" class="hide" style="margin-top:12px"><label class="l" for="currentUrl">Current website address *</label><input class="field" id="currentUrl" name="currentUrl" placeholder="yoursite.com" autocomplete="url" inputmode="url"></div></div>
 
       <div class="step" id="aboutStep">About the artist</div>
       <div class="fg">
@@ -462,7 +525,7 @@ textarea.field{min-height:84px;resize:vertical}
         <div><label class="l" for="category" id="lblCategory">Genre</label><input class="field" id="category" name="category"></div>
         <div class="full"><label class="l" for="links" id="lblLinks">Links to your music, videos and socials</label><textarea class="field" id="links" name="links"></textarea></div>
         <div class="full"><label class="l" for="location" id="lblLocation">City you rep</label><input class="field" id="location" name="location"></div>
-        <div class="full"><label class="l" for="goal">What should the website do for you?</label><input class="field" id="goal" name="goal"></div>
+        <div class="full"><label class="l" for="goal" id="lblGoal">What should the website do for you?</label><input class="field" id="goal" name="goal"></div>
       </div>
 
       <div class="step">Your contact</div>
@@ -512,6 +575,7 @@ textarea.field{min-height:84px;resize:vertical}
         </div>
       </div>
       <div class="err" id="payErr" role="alert"></div>
+      <div id="payRecSlot"></div>
       <p class="note">Questions before you pay? Email <a data-mail="contact" style="color:var(--c)"></a> with your order number.</p>
     </div>
 
@@ -519,7 +583,8 @@ textarea.field{min-height:84px;resize:vertical}
       <span class="ok" id="doneTag">PAYMENT REPORTED</span>
       <h2 id="doneTitle">You are in the build queue</h2>
       <p id="doneText"></p>
-      <button class="btn btn-g" id="doneClose">Close</button>
+      <div id="doneRecSlot"></div>
+      <button class="btn btn-g" id="doneClose" style="margin-top:22px">Close</button>
     </div>
   </div>
 </div>
@@ -530,12 +595,15 @@ textarea.field{min-height:84px;resize:vertical}
   const fmt=n=>'$'+Number(n).toLocaleString('en-US');
   const today=P.website+P.addon;
   let plan='website', order=null;
+  const VP=P.voice||997, VMIN=P.voiceMinutes||5000;
 
   // hero waveform
   const wave=$('#wave');for(let i=0;i<26;i++){const b=document.createElement('i');b.style.animationDelay=(-(i*37%150)/100)+'s';wave.appendChild(b)}
 
   // prices on the page come from config.js
   $$('[data-p="web"]').forEach(e=>e.textContent=fmt(P.website));
+  $$('[data-p="voice"]').forEach(e=>e.innerHTML=fmt(VP)+'<small>/mo</small>');
+  $$('[data-p="voiceper"]').forEach(e=>e.textContent=VMIN.toLocaleString('en-US')+' minutes a month included');
   $$('[data-p="today"]').forEach(e=>e.innerHTML=fmt(today)+'<small> today</small>');
   $$('[data-p="later"]').forEach(e=>e.textContent='then '+fmt(P.addon)+'/month for '+P.addonMonths+' months');
   $$('[data-p="faq"]').forEach(e=>e.textContent=fmt(P.addon)+' is due today with your website. Then '+fmt(P.addon)+' once a month for the next '+P.addonMonths+' months. After the final payment it is paid off.');
@@ -550,7 +618,7 @@ textarea.field{min-height:84px;resize:vertical}
     lastFocus=document.activeElement;
     modal.classList.add('on');document.body.classList.add('lock');
     if(order)show(order.done?'#stepDone':'#stepPay');
-    else if(p==='website'||p==='bundle')pick(p);
+    else if(p==='website'||p==='bundle'||p==='voice')pick(p);
     else show('#stepOffers');
     setTimeout(()=>{const f=modal.querySelector('.mbox > div:not(.hide) button, .mbox > form:not(.hide) input');(f||$('#mClose')).focus()},50);
   }
@@ -558,10 +626,14 @@ textarea.field{min-height:84px;resize:vertical}
   function pick(p){
     plan=p;show('#stepForm');
     if(p==='bundle'&&form.clientType.value==='artist'){form.clientType.value='business';labels()}
-    $('#chosenName').textContent=p==='bundle'?'Website + CallTwin: '+fmt(today)+' today, then '+fmt(P.addon)+'/month x '+P.addonMonths:'Website: '+fmt(P.website)+' one-time';
-    $('#due').textContent=fmt(p==='bundle'?today:P.website);
-    $('#later').textContent=p==='bundle'?'Then '+fmt(P.addon)+'/month for '+P.addonMonths+' months.':'No recurring charges.';
-    $('#termsText').textContent='I understand the website is a one-time '+fmt(P.website)+' build'+(p==='bundle'?' and CallTwin is '+fmt(P.addon)+' today plus '+fmt(P.addon)+' a month for '+P.addonMonths+' months.':'.');
+    const V=p==='voice';
+    $('#siteWrap').classList.toggle('hide',V);if(V){form.siteType.value='new';$('#urlWrap').classList.add('hide')}
+    $('#whoStep').textContent=V?'Who is the agent for?':'Who is the site for?';
+    $('#lblGoal').textContent=V?'What calls should the agent handle? (answer, book, follow up, support)':'What should the website do for you?';
+    $('#chosenName').textContent=V?'Voice AI Agent: '+fmt(VP)+'/month, '+VMIN.toLocaleString('en-US')+' minutes included':p==='bundle'?'Website + CallTwin: '+fmt(today)+' today, then '+fmt(P.addon)+'/month x '+P.addonMonths:'Website: '+fmt(P.website)+' one-time';
+    $('#due').textContent=fmt(V?VP:p==='bundle'?today:P.website);
+    $('#later').textContent=V?'Then '+fmt(VP)+' a month. Cancel anytime.':p==='bundle'?'Then '+fmt(P.addon)+'/month for '+P.addonMonths+' months.':'No recurring charges.';
+    $('#termsText').textContent=V?'I understand the Voice AI Agent is '+fmt(VP)+' a month with '+VMIN.toLocaleString('en-US')+' minutes included, the first month is due today, and I can cancel the monthly anytime.':'I understand the website is a one-time '+fmt(P.website)+' build'+(p==='bundle'?' and CallTwin is '+fmt(P.addon)+' today plus '+fmt(P.addon)+' a month for '+P.addonMonths+' months.':'.');
     $('#err').style.display='none';
   }
   const L={
@@ -579,6 +651,7 @@ textarea.field{min-height:84px;resize:vertical}
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('on'))close()});
   form.addEventListener('change',()=>{$('#urlWrap').classList.toggle('hide',form.siteType.value!=='rebuild');labels();$('#err').style.display='none'});
   if(location.hash==='#signup')open();
+  {const b=new URLSearchParams(location.search).get('buy');if(b==='voice'||b==='website'||b==='bundle')open(b)}
 
   async function api(body){
     const ac=new AbortController();const t=setTimeout(()=>ac.abort(),30000);
@@ -618,10 +691,13 @@ textarea.field{min-height:84px;resize:vertical}
     $('#payDue').textContent=amt;$('#cashAmt').textContent=amt;$('#zelleAmt').textContent=amt;
     $('#cashtag').textContent=p.cashtag;$('#cashOpen').href='https://cash.app/'+encodeURIComponent(p.cashtag).replace('%24','$')+'/'+o.amount;
     $('#zelle').textContent=p.zelle;$('#payee').textContent=p.payee;
-    $('#mCash').classList.toggle('hide',!p.cashtag);$('#mZelle').classList.toggle('hide',!p.zelle);$('#mCard').classList.toggle('hide',!p.stripe);
-    $('#cardText').textContent=o.plan==='bundle'
+    $('#mCash').classList.toggle('hide',!p.cashtag);$('#mZelle').classList.toggle('hide',!p.zelle);const cardLink=o.plan==='voice'?p.stripeVoice:p.stripe;o.cardLink=cardLink;$('#mCard').classList.toggle('hide',!cardLink);
+    $('#cardText').textContent=o.plan==='voice'
+      ?'Secure Stripe checkout for your first '+fmt(VP)+' month. Your order number is attached automatically.'
+      :o.plan==='bundle'
       ?'Secure Stripe checkout for the '+fmt(P.website)+' website. We email an invoice for your first '+fmt(P.addon)+' CallTwin payment.'
       :'Secure Stripe checkout for '+fmt(P.website)+'. Your order number is attached automatically.';
+    if(o.plan==='voice')mountRec('#payRecSlot');
     show('#stepPay');
   }
   function finish(kind){
@@ -633,6 +709,7 @@ textarea.field{min-height:84px;resize:vertical}
       ?'Order <b>'+o.id+'</b> is saved with no payment due.'
       :'Order <b>'+o.id+'</b>. We match your payment to this order number, then email <b></b> to start your build. Keep this number for your records.';
     const b=$('#doneText').querySelectorAll('b')[1];if(b)b.textContent=o.email;
+    if(o.plan==='voice')mountRec('#doneRecSlot');
     show('#stepDone');
   }
   const payErr=m=>{const e=$('#payErr');e.textContent=m;e.style.display=m?'block':'none'};
@@ -645,9 +722,85 @@ textarea.field{min-height:84px;resize:vertical}
   $('#cardGo').addEventListener('click',async()=>{
     const b=$('#cardGo');b.disabled=true;b.textContent='Opening secure checkout...';
     try{await api({action:'pay',id:order.id,token:order.token,method:'card'})}catch(x){}
-    const u=new URL(order.pay.stripe);u.searchParams.set('client_reference_id',order.id);u.searchParams.set('prefilled_email',order.email);
+    const u=new URL(order.cardLink);u.searchParams.set('client_reference_id',order.id);u.searchParams.set('prefilled_email',order.email);
     location.href=u.toString();
   });
+  /* ---------- voice recorder ---------- */
+  const SCRIPTS=[
+    'Hi, thanks for calling. I can help you with that today. Can I get your name and the best number to reach you? Perfect. I will send that over right now, and you will get a text confirmation in a minute. Is there anything else I can help you with?',
+    'This is your sign. The new drop is live right now. Tap the link, grab yours before it is gone, and turn every negative into a positive. Let us get it.',
+    'Sing a verse or a hook from one of your songs, a cappella, at your normal performance volume. Then sing it once more, softer.'
+  ];
+  let rec=null,chunks=[],stream=null,ac=null,raf=0,tick=0,started=0,lastBlob=null,recUrl='';
+  const MAXS=180;
+  function mime(){if(!window.MediaRecorder)return null;for(const m of ['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg;codecs=opus'])if(MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(m))return m;return ''}
+  function mountRec(slot){
+    let el=$('#vr');
+    if(!el){el=$('#vrTpl').content.firstElementChild.cloneNode(true);wireRec(el)}
+    $(slot).appendChild(el);refreshList();
+  }
+  const vmsg=(t,k)=>{const m=$('#vrMsg');if(!m)return;m.textContent=t;m.className='vr-msg'+(k?' v'+k:'')};
+  function wireRec(el){
+    const q=s=>el.querySelector(s);
+    const meter=q('#vrMeter');for(let i=0;i<32;i++)meter.appendChild(document.createElement('i'));
+    const setScript=i=>{const sc=q('#vrScript');sc.innerHTML='<small>'+['READ THIS','PROMO READ','SING'][i]+'</small>';sc.append(SCRIPTS[i]);el.querySelectorAll('[data-vs]').forEach(b=>b.classList.toggle('on',+b.dataset.vs===i))};
+    el.querySelectorAll('[data-vs]').forEach(b=>b.onclick=()=>setScript(+b.dataset.vs));setScript(0);
+    q('#vrRec').onclick=()=>rec&&rec.state==='recording'?stopRec():startRec();
+    q('#vrRedo').onclick=()=>{q('#vrTake').style.display='none';lastBlob=null;vmsg('');q('#vrTime').textContent='0:00'};
+    q('#vrSave').onclick=()=>lastBlob&&upload(lastBlob,'take');
+    q('#vrFile').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;if(f.size>50*1048576)return vmsg('That file is over 50 MB. Export a shorter clip or an MP3.','bad');upload(f,'upload')};
+  }
+  async function startRec(){
+    const mt=mime();
+    if(mt===null||!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return vmsg('This browser cannot record audio. Use Chrome, Safari or Edge, or upload a recording instead.','bad');
+    try{stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}})}
+    catch(x){return vmsg('Microphone blocked. Allow microphone access for this page, then try again.','bad')}
+    chunks=[];
+    try{rec=new MediaRecorder(stream,mt?{mimeType:mt,audioBitsPerSecond:128000}:undefined)}catch(x){rec=new MediaRecorder(stream)}
+    rec.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
+    rec.onstop=()=>{
+      const type=((rec.mimeType||mt||'audio/webm').split(';')[0])||'audio/webm';
+      lastBlob=new Blob(chunks,{type});
+      if(recUrl)URL.revokeObjectURL(recUrl);recUrl=URL.createObjectURL(lastBlob);
+      $('#vrAudio').src=recUrl;$('#vrTake').style.display='flex';
+      vmsg((Date.now()-started)<20000?'Short take. One to three minutes makes a better voice, but you can still save it.':'Listen back, then save it.');
+    };
+    try{ac=new (window.AudioContext||window.webkitAudioContext)();const an=ac.createAnalyser();an.fftSize=64;ac.createMediaStreamSource(stream).connect(an);
+      const d=new Uint8Array(an.frequencyBinCount),bars=[...document.querySelectorAll('#vrMeter i')];
+      const draw=()=>{an.getByteFrequencyData(d);bars.forEach((b,i)=>b.style.transform='scaleY('+Math.max(.06,d[i%d.length]/255)+')');raf=requestAnimationFrame(draw)};draw()}catch(x){}
+    rec.start(1000);started=Date.now();
+    $('#vrRec').classList.add('on');$('#vrRec').setAttribute('aria-label','Stop recording');$('#vrTake').style.display='none';
+    vmsg('Recording. Tap the button again to stop.');
+    tick=setInterval(()=>{const s=Math.floor((Date.now()-started)/1000);$('#vrTime').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');if(s>=MAXS)stopRec()},250);
+  }
+  function stopRec(){
+    clearInterval(tick);cancelAnimationFrame(raf);
+    if(rec&&rec.state!=='inactive')rec.stop();
+    if(stream)stream.getTracks().forEach(t=>t.stop());
+    if(ac)ac.close().catch(()=>{});
+    document.querySelectorAll('#vrMeter i').forEach(b=>b.style.transform='scaleY(.06)');
+    $('#vrRec').classList.remove('on');$('#vrRec').setAttribute('aria-label','Start recording');
+  }
+  async function upload(blob,kind){
+    const save=$('#vrSave');save.disabled=true;vmsg('Saving your recording...');
+    try{
+      const type=(blob.type||'').split(';')[0]||'audio/webm';
+      const d=await api({action:'voice_upload_url',id:order.id,token:order.token,type,kind});
+      const r=await fetch(d.uploadUrl,{method:'PUT',headers:{'Content-Type':d.contentType},body:blob});
+      if(!r.ok)throw Error('Upload failed ('+r.status+'). Try again.');
+      vmsg('Saved. We use this to build your voice.','ok');
+      if(kind==='take'){$('#vrTake').style.display='none';lastBlob=null;$('#vrTime').textContent='0:00'}
+      refreshList();
+    }catch(x){vmsg(x.message,'bad')}finally{save.disabled=false}
+  }
+  async function refreshList(){
+    if(!order||order.plan!=='voice')return;
+    try{const d=await api({action:'voice_list',id:order.id,token:order.token});
+      const ul=$('#vrList');if(!ul)return;ul.innerHTML='';
+      d.files.forEach((f,i)=>{const li=document.createElement('li');li.innerHTML='<span></span><b>SAVED</b>';li.firstChild.textContent='Take '+(i+1)+' / '+(f.size>1048576?(f.size/1048576).toFixed(1)+' MB':Math.max(1,Math.round(f.size/1024))+' KB');ul.appendChild(li)});
+    }catch(x){}
+  }
+
   $$('[data-copy-el]').forEach(b=>b.addEventListener('click',async()=>{
     const t=$('#'+b.dataset.copyEl).textContent;
     try{await navigator.clipboard.writeText(t);b.textContent='Copied'}catch(x){b.textContent='Select and copy'}

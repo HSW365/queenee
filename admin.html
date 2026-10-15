@@ -122,9 +122,10 @@ a{color:var(--c)}
         +'<div class="body">'
         +kv('Email','<a href="mailto:'+esc(o.email)+'?subject='+encodeURIComponent('Your QUEENEE website, order '+o.id)+'">'+esc(o.email)+'</a>')
         +kv('Phone',o.phone&&'<a href="tel:'+esc(o.phone)+'">'+esc(o.phone)+'</a>')
-        +kv('Package',o.plan==='bundle'?'Website + CallTwin':'Website')
+        +kv('Package',o.plan==='voice'?'Voice AI Agent (monthly)':o.plan==='bundle'?'Website + CallTwin':'Website')
+        +(o.plan==='voice'?kv('Voice recordings',(o.voice||[]).length?(o.voice||[]).map((f,i)=>'<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:4px 0"><audio controls preload="none" src="'+esc(f.url)+'" style="height:34px"></audio><a href="'+esc(f.url)+'" download="'+esc(o.id+'-'+f.name)+'" style="color:var(--c)">Download take '+(i+1)+'</a></div>').join(''):'None saved yet',1):'')
         +kv('Paying by',esc({card:'Card (check Stripe)',cashapp:'Cash App',zelle:'Zelle'}[o.pay_method]||''))
-        +kv('Site',o.site_type==='rebuild'?'Rebuild of '+esc(o.current_url):'New website')
+        +(o.plan==='voice'?'':kv('Site',o.site_type==='rebuild'?'Rebuild of '+esc(o.current_url):'New website'))
         +kv('Type',esc(o.category))+kv('Location',esc(o.location))+kv('Goal',esc(o.goal))
         +kv('Links / services',esc(o.links),1)+kv('Notes',esc(o.notes),1)+kv('Current site check',site,1)
         +'<div class="acts"><select class="field st" aria-label="Order status">'+Object.keys(STATUS).map(s=>'<option value="'+s+'"'+(s===o.status?' selected':'')+'>'+STATUS[s]+'</option>').join('')+'</select>'
