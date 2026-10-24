@@ -331,17 +331,6 @@ textarea.field{min-height:84px;resize:vertical}
   .steps{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
-.ad{display:grid;grid-template-columns:minmax(0,380px) 1fr;gap:56px;align-items:center}
-.ad-vid{position:relative;display:block;width:100%;aspect-ratio:9/16;border-radius:28px;overflow:hidden;border:1px solid var(--line2);background:#000;cursor:pointer;padding:0;box-shadow:0 30px 80px -30px rgba(236,72,153,.45)}
-.ad-vid video{width:100%;height:100%;object-fit:cover;display:block}
-.ad-vid .ad-tap{position:absolute;left:14px;right:14px;bottom:14px;display:flex;justify-content:space-between;align-items:center;background:rgba(236,72,153,.94);color:#fff;border-radius:14px;padding:14px 18px;font-weight:600;font-size:16px}
-.ad-vid .ad-snd{position:absolute;top:14px;right:14px;background:rgba(10,10,15,.72);border:1px solid var(--line2);color:var(--t);border-radius:999px;padding:7px 13px;font:700 11px 'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
-.ad h2{font-size:clamp(44px,5.6vw,76px);margin:14px 0 18px}.ad h2 .ad-pink{color:#ec4899;display:block}
-.ad p{color:var(--m);font-size:17px;margin:0 0 26px;max-width:520px}
-.ad-qr{display:flex;gap:20px;align-items:center;margin-top:30px;padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--s1);max-width:440px}
-.ad-qr img{width:116px;height:116px;border-radius:10px;background:#fff;flex:none}
-.ad-qr b{display:block;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:26px;line-height:1}.ad-qr span{color:var(--m);font-size:14px}
-@media(max-width:860px){.ad{grid-template-columns:1fr;gap:34px}.ad-vid{max-width:360px;margin:0 auto}}
 </style>
 </head>
 <body>
@@ -375,21 +364,6 @@ textarea.field{min-height:84px;resize:vertical}
     </div></div>
   </div>
 </div></header>
-
-<section class="sec" id="ad"><div class="w ad">
-  <button type="button" class="ad-vid" data-open="website" aria-label="Watch the ad and sign up">
-    <video src="site/ads/queenee-cents.mp4" poster="site/ads/queenee-cents-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    <span class="ad-snd" data-snd>Sound on</span>
-    <span class="ad-tap"><span>Sign up</span><span aria-hidden="true">&rsaquo;</span></span>
-  </button>
-  <div>
-    <div class="eyebrow">For artists, businesses and anyone</div>
-    <h2>Spotify pays cents.<span class="ad-pink">Your listeners pay you.</span></h2>
-    <p>Tips, memberships, merch, bookings and your music on a site you own. QUEENEE builds it from your sign-up, and builds any other kind of website too: barbers, restaurants, churches, coaches, clothing lines, contractors.</p>
-    <div class="ctas"><button class="btn btn-p" data-open="website">Get my website</button><a class="btn btn-g" href="#pricing">See packages</a></div>
-    <div class="ad-qr"><img src="site/ads/queenee-qr.svg" alt="QR code to sign up for QUEENEE"><div><b>Scan to sign up</b><span>Point your phone camera here to open QUEENEE sign-up.</span></div></div>
-  </div>
-</div></section>
 
 <section class="sec" id="who"><div class="w">
   <div class="sh"><div class="eyebrow">Who it's for</div><h2>Built around what you do</h2><p>A full build from your details, not a template you finish yourself. Tell us what you do and what the site needs to pull off.</p></div>
@@ -753,8 +727,6 @@ textarea.field{min-height:84px;resize:vertical}
   function labels(){const l=L[form.clientType.value]||L.other;$('#aboutStep').textContent=l.step;$('#lblProject').textContent=l.project;$('#lblCategory').textContent=l.category;$('#lblLinks').textContent=l.links;$('#lblLocation').textContent=l.location}
 
   $$('[data-open]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();open(b.dataset.open)}));
-  (()=>{const snd=document.querySelector('[data-snd]'),v=document.querySelector('.ad-vid video');if(!snd||!v)return;snd.addEventListener('click',e=>{e.stopPropagation();e.preventDefault();v.muted=!v.muted;if(!v.muted){v.currentTime=0;v.play().catch(()=>{})}snd.textContent=v.muted?'Sound on':'Sound off'},true)})();
-  if(/[?&]src=ad|#signup/.test(location.search+location.hash))setTimeout(()=>open('website'),400);
   $$('[data-pick]').forEach(b=>b.addEventListener('click',()=>{pick(b.dataset.pick);$('#projectName').focus()}));
   $('#changePkg').onclick=()=>show('#stepOffers');
   $('#mClose').onclick=close;$('#doneClose').onclick=close;
