@@ -1,6 +1,7 @@
 {
   "name": "queenee-ai-website-rebuilder",
   "version": "2.0.0",
+  "license": "UNLICENSED",
   "private": true,
   "description": "QUEENEE AI Website Rebuilder backend",
   "main": "server.js",
